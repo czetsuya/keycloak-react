@@ -15,7 +15,7 @@ const CustomerList = ({ dispatch, customers }) => {
         <div className="card">
           <ul>
             {customers.list.map(customer => (
-              <li key={customer.id}>{customer.name}</li>
+              <li key={customer.entityId}>{customer.name}</li>
             ))}
           </ul>
         </div>
