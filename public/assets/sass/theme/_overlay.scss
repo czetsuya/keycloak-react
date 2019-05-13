@@ -1,0 +1,212 @@
+body {
+    .p-dialog {
+        @include corner-all();
+        @include content();
+        @include overlay-content-shadow();
+        
+        .p-dialog-titlebar {
+            @include corner-top();
+            background-color: $dialogHeaderBgColor;
+            color: $dialogHeaderTextColor;
+            padding: $headerPadding;
+            
+            .p-dialog-title {
+                font-size: 1.25em;
+                letter-spacing: .005em;
+                margin-top: .25em;
+                line-height: 2em;
+            }
+            
+            .p-dialog-titlebar-icon {
+                border: 0 none;
+                padding: 0;
+                @include border-radius(50%);
+                @include transition(background-color$transitionDuration);
+                height: 1.5em;
+                width: 1.5em;
+                text-align: center;
+                margin-top: .5em;
+                
+                &:hover, &:focus {
+                    @include hover-element();
+                }
+                
+                .pi {
+                    color: $textSecondaryColor;
+                    display: inline-block;
+                }
+
+                .pi-window-maximize {
+                    @include icon_override('fullscreen');
+                }
+
+                .pi-window-minimize {
+                    @include icon_override('fullscreen_exit');
+                }
+            }
+        }
+        
+        .p-dialog-content {
+            padding: $contentPadding;
+        }
+        
+        .p-dialog-footer {
+            text-align: right;
+            border: 0 none;
+            border-top: 1px solid $dividerColor;
+            
+            .p-button {
+                background-color: $dialogFooterButtonBgColor;
+                color: $dialogFooterButtonTextColor;
+                @include no-shadow();
+                width: auto;
+                
+                .pi {
+                    color: $dialogFooterButtonTextColor;
+                }
+                
+                &:hover {
+                    @include hover-element();
+                }
+            }
+        }
+        
+        .p-confirm-dialog-severity {
+            margin: 0px .75em;
+        }
+    }
+    
+    .p-lightbox {
+        @include corner-all();
+        @include overlay-content-shadow();
+
+        .p-lightbox-caption {
+            padding: $headerPadding;
+            
+            .p-lightbox-caption-text {
+                margin: 0;
+            }
+            
+            .p-lightbox-close {
+                @include border-radius(50%);
+                @include transition(background-color$transitionDuration);
+                padding: 0;
+                margin: 0;
+                width: 1.5em;
+                height: 1.5em;
+                            
+                &:hover {
+                    background-color: $primaryLightColor;
+                    @include border-radius(50%);
+                    @include transition(background-color$transitionDuration);
+                }
+            }
+        }
+        
+        .p-lightbox-content-wrapper {
+            .p-lightbox-nav-right, .p-lightbox-nav-left {
+                top: 40%;
+                
+                .pi {
+                    @include transition(color$transitionDuration);
+                    font-size: 3em;
+                    color: $primaryLightColor;
+                }
+            }
+            .p-lightbox-content {
+                @include corner-all();
+            }
+        }
+    }
+    
+    .p-overlaypanel {
+        @include content();
+        @include corner-all();
+        @include overlay-content-shadow();
+        
+        .p-overlaypanel-close {
+            background-color: $accentColor;
+            @include border-radius(50%);
+            @include transition(background-color$transitionDuration);
+            right: -16px;
+            top: -16px;
+            width: 2em;
+            height: 2em;
+            line-height: 2em;
+            text-align: center;
+            @include content-shadow();
+            
+            span {
+                color: $accentTextColor;
+                line-height: inherit;
+            }
+            
+            &:hover {
+                background-color: $accentDarkColor;
+            }
+        }
+
+        &:after {
+            border-color: rgba($contentBgColor, 0);
+            border-bottom-color: $contentBgColor;
+        }
+
+        &:before {
+            border-color: rgba($contentBorderColor, 0);
+            border-bottom-color: $contentBorderColor;
+        }
+
+        &.p-overlaypanel-flipped {
+            &:after {
+                border-top-color: $contentBgColor;
+            }
+
+            &:before {
+                border-top-color: $contentBorderColor;
+            }
+        }
+    }
+    
+    .p-tooltip {
+        @include opacity(.9);
+        
+        .p-tooltip-text {
+            background-color: $tooltipBgColor;
+        }
+        
+        &.p-tooltip-top {
+            .p-tooltip-arrow {
+                border-top-color: $tooltipBgColor;
+            }
+        }
+        
+        &.p-tooltip-bottom {
+            .p-tooltip-arrow {
+                border-bottom-color: $tooltipBgColor;
+            }
+        }
+        
+        &.p-tooltip-left {
+            .p-tooltip-arrow {
+                border-left-color: $tooltipBgColor;
+            }
+        }
+        
+        &.p-tooltip-right {
+            .p-tooltip-arrow {
+                border-right-color: $tooltipBgColor;
+            }
+        }
+    }
+
+    .p-sidebar {
+        @include content();
+
+        .p-sidebar-close {
+            color: $textSecondaryColor;
+            &:hover {
+                color: $textColor;
+            }
+        }
+    }
+}

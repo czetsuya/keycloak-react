@@ -1,0 +1,43 @@
+body {
+    .p-component {
+        font-family: $fontFamily;
+        text-decoration: none;
+    }
+
+    .p-widget-content {
+        background-color: $contentBgColor;
+        border: 1px solid $contentBorderColor;
+    }
+    
+    .p-widget-header {
+        background-color: $headerBgColor;
+        color: $primaryTextColor;
+        border: 1px solid $headerBgColor;
+
+        .pi {
+            color: $primaryTextColor;
+        }
+    }
+
+    .p-highlight {
+        background-color: $accentColor;
+        color: $accentTextColor;
+    }
+
+    .p-component:disabled,
+    .p-disabled {
+        opacity: .35;
+        filter: Alpha(Opacity=35);
+        background-image: none;
+        cursor: auto !important;
+    }
+
+    .p-component-overlay {
+        background-color: $overlayMaskBgColor;
+        @include opacity(.8);
+    }
+        
+    a {
+        color: $primaryColor;
+    }
+}

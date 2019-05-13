@@ -1,0 +1,1674 @@
+body {
+    .p-inputtext {
+        background: transparent no-repeat;
+        background-image: linear-gradient(to bottom, $primaryColor, $primaryColor), linear-gradient(to bottom, $inputBorderColor, $inputBorderColor);
+        background-size: 0 2px, 100% 1px;
+        background-position: 50% 100%, 50% 100%;
+        transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+        border-width: 0;
+        padding: 2px;
+        font-size: $fontSize;
+        @include border-radius(0px);
+        
+        &:focus,
+        &.p-focus {
+            border-width: 0;
+            background-size: 100% 2px, 100% 1px;
+            padding-bottom: 2px;
+        }
+        
+        &:disabled {
+            border-bottom: 1px dotted;
+        }
+        
+        &.p-widget-content {
+            border-width: 1px;
+            background: transparent;
+            background-image: none;
+        }
+        
+        &.p-error {
+            background-image: linear-gradient(to bottom, $errorColor, $errorColor), linear-gradient(to bottom, $errorColor, $errorColor);
+        }
+    }
+
+    .p-multiselect-filter-container, .p-listbox-filter-container, .p-dropdown-filter-container, .p-datatable-header {
+        .p-inputtext {
+            background-image: linear-gradient(to bottom, $headerTextColor, $headerTextColor), linear-gradient(to bottom, lighten($primaryColor,25%),  lighten($primaryColor,25%));
+        }
+    }
+
+    .md-inputfield {
+        display: block;
+        position:relative; 
+        
+        label {
+          color:$inputFieldLabelTextColor;
+          font-weight:normal;
+          position:absolute;
+          pointer-events:none;
+          left:5px;
+          top:1px;
+          transition: 0.3s ease all; 
+          -moz-transition: 0.3s ease all; 
+          -webkit-transition: 0.3s ease all;
+        }
+        
+        input:focus ~ label,
+        input.p-filled ~ label,
+        .p-inputwrapper-focus ~ label,
+        .p-inputwrapper-filled ~ label {
+          top:-20px;
+          font-size:12px;
+          color:$primaryColor;
+        }
+
+        .input:-webkit-autofill ~ label {
+          top:-20px;
+          font-size:12px;
+          color:$primaryColor;
+        }
+
+        input.ng-dirty.ng-invalid ~ label {
+            color: $errorColor;
+        }
+        
+        .p-message {
+            &.p-messages-error {
+                background-color: transparent;
+                border: 0 none;
+                margin: 0px;
+                color: $errorColor;
+                font-size: .75em;
+            }
+        }
+
+        &.md-inputfield-fill {
+            input {
+                background-color: $textboxBgColor;
+                padding-left: 4px;
+                padding-right: 4px;
+                padding-top: 4px;
+            }
+
+            label {
+                top: 2px;
+            }
+        }
+
+        &.md-inputfield-box {
+            input {
+                background-color: $textboxBgColor;
+                padding-left: 4px;
+                padding-right: 4px;
+                padding-top: 24px;
+            }
+
+            label {
+                top: 23px;
+            }
+
+            input:focus ~ label,
+            input.p-filled ~ label,
+            .p-inputwrapper-focus ~ label,
+            .p-inputwrapper-filled ~ label {
+                top:1px;
+            }
+
+            .input:-webkit-autofill ~ label {
+                top:1px;
+            }
+        }
+    }
+
+    .p-material-message {
+        &.p-message {
+            &.p-messages-error {
+                background-color: transparent;
+                border: 0 none;
+                margin: 0px;
+                color: $errorColor;
+                font-size: .75em;
+            }
+        }
+    }
+    
+    .p-listbox {
+        @include content();
+        @include corner-all();
+        min-width: 12.5em;
+        background-color: $inputBgColor;
+        @include border-radius($borderRadius);
+        
+        &.p-inputtext {
+            padding: 0;
+        }
+        
+        .p-listbox-list {
+            padding: 0;
+        }
+        
+        .p-listbox-item {
+            font-size: $fontSize;
+            padding: 0.625em 0.875em;
+            margin: 0;
+            color: $textColor;
+            @include rippleitem();
+            @include transition(background-color$transitionDuration);
+            @include border-radius(0);
+                        
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+            }
+        }
+        
+        &:not(.p-disabled) {
+            .p-listbox-item {
+                &:not(.p-highlight):hover {
+                    @include hover-element();
+                }                
+            }
+        }
+        
+        .p-listbox-header {
+            @include header();
+            @include border-radius(0);
+            padding: $inputHeaderPadding;
+            
+            .p-checkbox {
+                .p-checkbox-box {
+                    border-color: $primaryTextColor;
+                }
+            }
+            
+            .p-listbox-filter-container {
+                .p-inputtext {
+                    padding: 2px;
+                    padding-left: 1.5em;
+                    color: $primaryTextColor;
+                }
+                
+                .pi {
+                    top: 0;
+                    left: 0;
+                }
+            }
+        }
+    }
+        
+    .p-button {
+        @include corner-all();
+        overflow: hidden;
+        background-color: $primaryColor;
+        color: $buttonTextColor;
+        font-size: $buttonFontSize;
+        height: 2.25em;
+        padding: 0 1em;
+        border: 0 none;
+        -moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+        -webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+        box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+        @include transition(background-color .3s);
+        vertical-align: middle;
+        
+        &:enabled:not(:focus):not(.p-dataview-header .p-highlight):hover {
+            background-color: $primaryDarkColor;   
+        }
+        
+        &:focus {
+            outline: 0 none;
+            background-color: lighten($primaryColor,10%);
+        }
+        
+        .p-button-text {
+            padding: 0;
+            line-height: 2.25em;
+        }
+
+        &.p-button-icon-only {
+            @include border-radius(50%);
+            width: 2.5em;
+            height: 2.5em;
+
+            .pi {
+                margin-left: -.5em;
+            }
+        }
+
+        &.p-button-text-icon-left {
+            padding-left: 2.5em;
+        }
+
+        &.p-button-text-icon-right {
+            padding-right: 2.5em;
+        }
+                                                
+        &.secondary-btn {
+            background-color: $accentColor;
+            color: $accentTextColor;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $accentDarkColor;   
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($accentColor,10%);
+            }
+        }
+        
+        &.blue-grey-btn {
+            background-color: $blueGrey;
+            
+           &:enabled:not(:focus):hover {
+                background-color: $blueGreyDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($blueGrey,10%);
+            }
+        }
+        
+        &.cyan-btn {
+            background-color: $cyan;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $cyanDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($cyan,10%);
+            }
+        }
+        
+        &.teal-btn {
+            background-color: $teal;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $tealDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($teal,10%);
+            }
+        }
+        
+        &.red-btn {
+            background-color: $red;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $redDark;  
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($red,10%);
+            }
+        }
+        
+        &.green-btn {
+            background-color: $green;
+            
+           &:enabled:not(:focus):hover {
+                background-color: $greenDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($green,10%);
+            }
+        }
+        
+        &.deep-orange-btn {
+            background-color: $deepOrange;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $deepOrangeDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($deepOrange,10%);
+            }
+        }
+        
+        &.purple-btn {
+            background-color: $purple;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $purpleDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($purple,10%);
+            }
+        }
+        
+        &.pink-btn {
+            background-color: $pink;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $pinkDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($pink,10%);
+            }
+        }
+        
+        &.amber-btn {
+            background-color: $amber;
+            color: $textColor;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $amberDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($amber,10%);
+            }
+        }
+        
+        &.orange-btn {
+            background-color: $orange;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $orangeDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($orange,10%);
+            }
+        }
+        
+        &.brown-btn {
+            background-color: $brown;
+            
+            &:enabled:not(:focus):hover {
+                background-color: $brownDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($brown,10%);
+            }
+        }
+
+        &.indigo-btn {
+            background-color: $indigo;
+            
+            &:enabled:not(:focus):hover {
+               background-color: $indigoDark;
+            }
+            
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($indigo,10%);
+            }
+        }
+
+        &.blue-btn, &.ui-info-button {
+            background-color: $blue;
+            color: $buttonTextColor;
+
+            &:enabled:not(:focus):hover {
+                background-color: $blueDark;
+            }
+
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($blue,10%);
+            }
+        }
+        
+        &.flat-btn {
+            @include no-shadow();
+        }
+    }
+
+    .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button  {
+        color: $textColor;
+        background-color: $secondary;
+
+        .p-button-icon-left {
+            color: $textSecondaryColor;
+        }
+
+        .p-button-icon-right {
+            color: $textSecondaryColor;
+        }
+
+        &:enabled:hover {
+            @include hover-element();
+        }
+
+        &:enabled:focus {
+            background-color: darken($secondary, 10%);
+        }
+    }
+
+    .p-button.p-button-info, .p-buttonset.p-button-info > .p-button  {
+        color: $buttonTextColor;
+        background-color: $blue;
+
+        &:enabled:hover {
+            background-color: $blueDark;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            background-color: lighten($blue,10%);
+        }
+    }
+
+    .p-button.p-button-success, .p-buttonset.p-button-success > .p-button  {
+        color: $buttonTextColor;
+        background-color: $green;
+
+        &:enabled:hover {
+            background-color: $greenDark;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            background-color: lighten($green,10%);
+        }
+    }
+
+    .p-button.p-button-warning, .p-buttonset.p-button-warning > .p-button  {
+        color: $textColor;
+        background-color: $amber;
+
+        &:enabled:hover {
+            background-color: $amberDark;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            background-color: lighten($amber,10%);
+        }
+    }
+
+    .p-button.p-button-danger, .p-buttonset.p-button-danger > .p-button  {
+        color: $buttonTextColor;
+        background-color: $red;
+
+        &:enabled:hover {
+            background-color: $redDark;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            background-color: lighten($red,10%);
+        }
+    }
+    
+    .p-buttonset {
+        .p-button {
+            @include border-radius(0);
+
+            &:first-child {
+                @include border-radius-left($borderRadius);
+            }
+
+            &:last-child {
+                @include border-radius-right($borderRadius);
+            }
+            &:not(.p-disabled):not(.p-highlight):hover {
+                background-color: $primaryDarkColor;
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+            }
+        }
+    }
+    
+    .p-togglebutton {
+        &:not(.p-highlight):not(.p-disabled):hover {
+            background-color: $primaryDarkColor;
+        }
+
+        &.p-highlight {
+            background-color: $accentColor;
+            color: $accentTextColor;
+        }
+    }
+    
+    .p-splitbutton {
+        line-height: 18px;
+        vertical-align: middle;
+        @include border-radius($borderRadius + 1);
+        @include raised-btn();
+        @include no-shadow();
+
+        > .p-button {
+
+            &:first-child {
+                vertical-align: top;
+                @include corner-left();
+                @include border-radius-left($borderRadius);
+                @include border-radius-right(0);
+            }
+            
+            &:active {
+                background-color: lighten($primaryColor,10%);
+            }
+
+            &.p-splitbutton-menubutton {
+                height: 2.25em;
+                width: 2.5em;
+                @include border-radius-left(0);
+                @include border-radius-right($borderRadius);
+            }
+        }
+    }
+    
+    .p-fluid {
+        .p-splitbutton {
+            .p-button:first-child {
+                width: calc(100% - 2.5em);
+            }
+
+            .p-button.p-splitbutton-menubutton {
+                width: 2.5em;
+            }
+        }
+    }
+        
+    .p-checkbox {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.25em;
+        width: 1.25em;
+        height: 1.25em;
+        cursor: default;
+        margin-right: .5em;
+        
+        .p-checkbox-box {
+            border: 2px solid $textSecondaryColor;
+            width: 1.25em;
+            height: 1.25em;
+            overflow: hidden;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            @include transition(background-color$transitionDuration);
+            
+            .p-checkbox-icon {
+                font-size: 1.25em;
+                margin-left: -2px;
+                margin-top: -2px;
+            }
+            
+            &.p-highlight {
+                border-color: $primaryColor;
+                background-color: $primaryColor;
+            }
+            
+            &.p-focus {
+                border-color: $primaryColor;
+                @include content-shadow();
+                @include transition(box-shadow$transitionDuration, background-color$transitionDuration);
+            }
+        }
+    }
+    
+    .p-radiobutton {
+        position: relative;
+        margin: 0 .5em 0 0;
+        vertical-align: middle;
+
+        .p-radiobutton-box {
+            border: 2px solid $radioButtonBorderColor;
+            width: 1.286em;
+            height: 1.286em;
+            @include transition(box-shadow$transitionDuration);
+            @include border-radius(50%);
+
+            &.p-focus {
+                border-color: $primaryColor;
+                @include content-shadow();
+                @include transition(box-shadow$transitionDuration,background-color$transitionDuration);
+            }
+
+            &.p-highlight {
+                border-color: $primaryColor;
+                background-color: transparent;
+            }
+
+            .p-radiobutton-icon {
+                @include border-radius(50%);
+                font-size: 1em;
+                transition: -webkit-transform ease .28s;
+                transition: transform ease .28s;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            .pi-circle-on {
+                &.pi:before {
+                    content: "circle";
+                }
+                background-color: $primaryColor;
+                -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+            }
+        }
+    }
+        
+    .p-autocomplete-panel {
+        @include border-radius(0);
+        @include content();
+        @include corner-all();
+        
+        &.p-shadow {
+            @include overlay-input-shadow();
+        }
+        
+        .p-autocomplete-list {
+            padding: 0;
+            
+            .p-autocomplete-list-item {
+                @include transition(background-color$transitionDuration);
+                @include border-radius(0);
+                padding: $listItemPadding;
+                color: $textColor;
+                
+                .p-autocomplete-query {
+                    font-weight: 700;
+                }
+                
+                &:hover, &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+            }
+            
+            .p-autocomplete-group {
+                padding: $listItemPadding;
+            }
+        }
+    }
+    
+    .p-autocomplete {
+        
+        .p-autocomplete-loader {
+            @include material-icon('refresh');
+            @include animation(0, 1000ms, spin);
+            color: $textSecondaryColor;
+            right: 0;
+        }
+
+        &.p-autocomplete-dd {
+            .p-autocomplete-loader {
+                right: 1em;
+            }
+        }
+        
+        .p-autocomplete-dropdown {
+            &.p-button.p-button-icon-only {
+                background-color: transparent;
+                @include no-shadow();
+                height: 1.5em;
+                width: 1.5em;
+                padding: 0;
+                right: 0;
+                top: 0;
+                margin-right: 0;
+                position: absolute;
+                
+                .p-button-text {
+                    display: none;
+                }
+                
+                .p-button-icon {
+                    line-height: 1;
+                }
+                
+                .pi {
+                    color: $textSecondaryColor;
+                }
+            }
+        }
+        
+        &.p-autocomplete-multiple {
+            .p-autocomplete-multiple-container {
+                &.p-inputtext {
+                    box-sizing: border-box;
+                    padding: 2px;
+                }
+
+                &.p-disabled {
+                    border-bottom: 1px dotted;
+                }
+            }
+            
+            .p-autocomplete-input-token {
+                float: none;
+                display: inline-block;
+                margin: 0 1px;
+                vertical-align: middle;
+                
+                > input {
+                    padding: 0;
+                    font-size: $fontSize;
+                    margin: 0;
+                    vertical-align: bottom;
+                }
+            }
+            
+            .p-autocomplete-token {
+                display: inline-block;
+                float: none;
+                vertical-align: middle;
+                font-size: 1em;
+                @include corner-all();
+                
+                .p-autocomplete-token-label {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+            
+            .p-autocomplete-dropdown.p-button.p-button-icon-only {
+                top: auto;
+                bottom: 0;
+            }
+
+            .p-autocomplete-loader {
+                margin-top: -.35em;
+            }
+        }
+    }
+    
+    .p-fluid {
+        .p-autocomplete {
+            &.p-autocomplete-dd {
+                > .p-inputtext {
+                    width: 100%;    
+                }
+            }
+        }
+    }
+
+    .p-dropdown {
+        border-width: 0;
+        background: transparent no-repeat;
+        background-image: linear-gradient(to bottom, $primaryColor, $primaryColor), linear-gradient(to bottom, $inputBorderColor, $inputBorderColor);
+        background-size: 0 2px, 100% 1px;
+        background-position: 50% 100%, 50% 100%;
+        transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+        padding-bottom: 2px;
+        box-sizing: border-box;
+        @include border-radius(0);
+        @include corner-all();
+        
+        .p-dropdown-trigger-icon {
+            height: 1.5em;
+            width: 1.5em;
+            margin-top: 0;
+            padding: 0;
+            margin-right: 0;
+            @include corner-right();
+            color: $textSecondaryColor;
+        }
+
+        .p-dropdown-label {
+            background: none;
+            @include corner-all();
+        }
+                
+        &.p-focus {
+            border-width: 0;
+            background-size: 100% 2px, 100% 1px;
+            padding-bottom: 2px;
+
+            .p-dropdown-label {
+                padding-bottom: 2px;
+            }
+        }
+    }
+    
+    .p-dropdown-panel {
+        @include border-radius(0);
+        @include content();
+        @include corner-all();
+
+        .p-dropdown-list {
+            padding: 0;
+            @include content();
+            @include corner-all();
+        }
+        
+        .p-dropdown-item {
+            margin: 0;
+            padding: $listItemPadding;
+            color: $textColor;
+            @include transition(background-color$transitionDuration);
+            @include border-radius(0);
+            
+            &:hover {
+                @include hover-element();
+            }
+            
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+            }
+        }
+
+        &.p-shadow {
+            @include overlay-input-shadow();
+        }
+        
+        .p-dropdown-filter-container {
+            display: block;
+            border-bottom: 1px solid $inputBorderColor;
+            background-color: $primaryColor;
+            padding: $inputHeaderPadding;
+            
+            input {
+                color: $primaryTextColor;
+
+                &:focus {
+                    border-bottom-color: $primaryTextColor;
+                }
+            }
+            
+            .pi {
+                top: .325em;
+                right: .75em;
+                color: $primaryTextColor;
+            }
+        }
+    }
+    
+    .p-multiselect {
+        border-bottom: 1px solid $inputBorderColor;
+        box-sizing: border-box;
+        @include border-radius(0);
+        @include transition(border-color$transitionDuration); 
+        
+        .p-multiselect-label-container {
+            padding-right: 1.5em;
+            
+            .p-multiselect-label {
+                padding: 0px 2px 0px 2px;
+            }
+        }
+            
+        .p-multiselect-trigger-icon {
+            height: 1.5em;
+            width: 1.5em;
+            margin-top: 0;
+            padding: 0;
+            color: $textSecondaryColor;
+        } 
+        
+        &.p-focus {
+            border-bottom: 2px solid $primaryColor;
+        }
+    }
+    
+    .p-multiselect-panel {
+        padding: 0;
+        @include border-radius(3);
+        @include overlay-input-shadow();
+        min-width: 12.5em;
+        @include content();
+        @include corner-all();
+                
+        .p-multiselect-header {
+            @include corner-all();
+            @include header();
+            @include border-radius(0);
+            padding: $inputHeaderPadding;
+            position: relative;
+
+            .p-checkbox {
+                float: none;
+                margin: 0 .5em 0 -.125em;
+                position: static;
+
+                .p-checkbox-box {
+                    border-color: $primaryTextColor;
+                    
+                    .p-checkbox-icon {
+                        border-color: $primaryTextColor;;
+                    }
+                    
+                    &.p-highlight {
+                        .p-checkbox-icon {
+                            border-color: $primaryTextColor;;
+                        }
+                    }
+                    
+                    &.p-focus {
+                        background-color: $primaryLightColor;
+                        @include transition(background-color$transitionDuration);
+                    }
+                }
+            }
+
+            .p-multiselect-filter-container {
+                width: 70%;
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+                margin-left: 0;
+                
+                .pi {
+                    top: 0;
+                    left: 0;
+                }
+
+                .p-inputtext {
+                    padding: 2px;
+                    padding-left: 1.5em;
+                    color: $inputListItemFilterTextColor;
+                    width: 100%;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        border-bottom-color: $inputListItemFilterTextColor;
+                    }
+                }
+            }
+            
+            .p-multiselect-close {
+                position: absolute;
+                right: .5em;
+                height: 1.5em;
+                width: 1.5em;
+                top: .625em;
+                
+                span {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    width: 1em;
+                    height: 1em;
+                    margin-top: -.5em;
+                    margin-left: -.5em;
+                    color: $primaryTextColor;;
+                }
+                
+                &:hover {
+                    background-color: $primaryLightColor;
+                    @include border-radius(50%);
+                    @include transition(background-color$transitionDuration);
+                }
+            }
+        }
+
+        .p-multiselect-items {
+            padding: 0;
+
+            .p-multiselect-item {
+                padding: .625em .875em;
+                color: $textColor;
+                @include border-radius(0);
+
+                &:not(.p-highlight):hover {
+                    @include hover-element();
+                }
+
+                &.p-highlight {
+                    color: $accentTextColor;
+                }
+            }
+        }
+    }
+        
+    .p-spinner {
+        @include corner-all();
+
+        .p-spinner-button {
+            position: absolute;
+            width: 1em;
+            height: .75em;
+            padding: 0;
+            margin-right: .25em;
+            background-color: transparent;
+            color: $textColor;
+            z-index: auto;
+            @include no-shadow();
+                        
+            .pi {
+                height: .5em;
+                color: $textSecondaryColor;
+            }
+
+            &:enabled:hover,
+            &:active {
+                background-color: transparent;
+            }
+        }
+        
+        .p-spinner-up {
+            .pi {
+                top: .25em;
+            }
+        }
+        
+        .p-spinner-down {
+            .pi {
+                top: .167em;
+            }
+        }
+        
+        .p-spinner-input {
+            padding-right: 30px;
+        }
+    }
+    
+    .p-fluid {
+        .p-spinner {
+            .p-spinner-button {
+                width: 1em;
+                height: .75em;
+
+                .pi {
+                    left: auto;
+                }
+            }
+        }
+    }
+
+    .p-inputswitch {
+        height: 14px;
+        width: 34px !important;
+
+        .p-inputswitch-slider {
+            background-color: rgb(158,158,158);
+            @include border-radius(8px);
+            @include transition(background-color .3s);
+
+            &:before {
+                background-color: $inputSwitchOffHandleBgColor;
+                height: 1.429em;
+                width: 1.429em;
+                left: 0;
+                bottom: -0.214em;
+                border-radius: 50%;
+                -webkit-transition: $transitionDuration;
+                transition: $transitionDuration;
+                -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px;
+                -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px;
+                box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px;
+            }
+        }
+
+        &.p-inputswitch-checked {
+            .p-inputswitch-slider:before {
+                -webkit-transform: translateX(1.250em);
+                -ms-transform: translateX(1.250em);
+                transform: translateX(1.250em);
+            }
+        }
+
+        &.p-inputswitch-focus {
+            .p-inputswitch-slider {
+                background-color: rgb(158,158,158);
+            }
+        }
+
+        &:not(.p-state-disabled):hover {
+            .p-inputswitch-slider {
+                background-color: rgb(158,158,158);
+            }
+        }
+
+        &.p-inputswitch-checked {
+            .p-inputswitch-slider {
+                background-color: $accentLightColor;
+
+                &:before {
+                    background-color: $accentColor
+                }
+            }
+
+            &:not(.p-state-disabled):hover {
+                .p-inputswitch-slider {
+                    background-color: $accentLightColor;
+                }
+            }
+
+            &.p-inputswitch-focus {
+                .p-inputswitch-slider {
+                    background: $accentLightColor;
+                }
+            }
+        }
+    }
+    
+    .p-slider {
+        @include content();
+        @include corner-all();
+
+        .p-slider-handle {
+            background-color: $accentColor;
+            color: $accentTextColor;
+            @include border-radius(50%);
+            width: 1.25em;
+            height: 1.25em;
+            transform: scale(.7);
+            @include transition(all .4s cubic-bezier(.25,.8,.25,1));
+            
+            &.p-focus {
+                transform: scale(1);
+            } 
+            
+            &:focus {
+                outline: 0 none;
+            }
+        }
+        
+        &.p-slider-horizontal {
+            height: 2px;
+            border: 0 none;
+            background-color: $inputBorderColor;
+            
+            .p-slider-handle {
+                top: -.55em;
+            }
+        }
+        
+        &.p-slider-vertical {
+            width: 2px;
+            border: 0 none;
+            background-color: $inputBorderColor;
+            
+            .p-slider-handle {
+                left: -.55em;
+            }
+        }
+        
+        .p-slider-range {
+            @include corner-all();
+            background-color: $accentColor;
+            color: $accentTextColor;
+        }
+
+        &:not(.p-disabled) {
+            .p-slider-handle {
+                &:hover {
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+    
+    .p-calendar {
+        .p-datepicker-trigger.p-button-icon-only {
+            bottom: 2px;
+            right: 0;
+            top: auto;
+            background-color: transparent;
+            color: $textColor;
+            height: 1.5em;
+            width: 1.5em;
+            @include no-shadow();
+            @include border-radius(0);
+
+            .pi {
+                color: $textSecondaryColor;
+            }
+
+
+            &:enabled:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .p-fluid {
+        .p-calendar.p-calendar-w-btn {
+            .p-inputtext {
+                width: 100%;
+            }
+        }
+    }
+    
+    .p-datepicker {
+        @include content();
+        @include corner-all();
+        padding: 0;
+        width: 17.5em;
+
+        &.p-shadow {
+            @include overlay-input-shadow();
+        }
+
+        &:not(.p-disabled) {
+            .p-datepicker-header {
+                .p-datepicker-prev,
+                .p-datepicker-next {
+                    &:hover {
+                        color: $primaryLightColor;
+                    }
+                }
+            }
+
+            table {
+                td {
+                    span:not(.p-highlight):not(.p-highlight):hover {
+                        @include hover-element();
+                    }
+                }
+            }
+
+            .p-monthpicker {
+                .p-monthpicker-month:not(.p-highlight):hover {
+                    @include hover-element();
+                }
+            }
+        }
+
+        .p-datepicker-header {
+            @include header();
+            @include corner-all();
+            padding: $inputHeaderPadding;
+            background: $primaryDarkColor;
+            border-color: $primaryDarkColor;
+            @include border-radius-top(2px);
+            @include border-radius-bottom(0);
+
+            .p-datepicker-prev {
+                cursor: pointer;
+                @include border-radius(50%);
+                @include material-icon("keyboard_arrow_left");
+                @include transition(background-color$transitionDuration);
+                color: $primaryTextColor;
+
+                .pi {
+                    display: none;
+                }
+            }
+
+            .p-datepicker-next {
+                cursor: pointer;
+                @include material-icon("keyboard_arrow_right");
+                @include border-radius(50%);
+                @include transition(background-color$transitionDuration);
+                color: $primaryTextColor;;
+
+                .pi {
+                    display: none;
+                }
+            }
+
+            .p-datepicker-title {
+                margin: 0;
+                padding: 0;
+                line-height: 1.8;
+
+                select {
+                    margin-top: -.35em;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        table {
+            table-layout: fixed;
+            border-spacing: 0;
+            border-collapse: collapse;
+            font-size: $fontSize - 2;
+
+            thead {
+                tr {
+                    color: $primaryTextColor;
+                    background: $primaryColor;
+                }
+            }
+
+            td {
+                padding: .25em .125em;
+                box-sizing: border-box;
+
+                > span {
+                    cursor: pointer;
+                    padding: .25em;
+                    margin: 0;
+                    text-align: center;
+                    color: $textColor;
+                    display: inline-block;
+                    height: 2.250em;
+                    width: 2.250em;
+                    @include border-radius(50%);
+                    line-height: 1.8em;
+
+                    &.p-highlight {
+                        background-color: $accentColor;
+                        color: $accentTextColor;
+                    }
+
+                    &:not(.p-highlight):not(.p-highlight):hover {
+                        @include hover-element();
+                    }
+
+                    span {
+                        display: inline;
+                        padding: 0;
+                        text-align: center;
+                    }
+                }
+
+                &.p-datepicker-today {
+                    > span {
+                        color: $primaryTextColor;
+                        background: lighten($primaryColor, 20%);
+
+                        &.p-highlight {
+                            background-color: $accentColor;
+                            color: $accentTextColor;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        .p-timepicker {
+            @include header();
+            @include corner-all();
+            @include border-radius(0);
+
+            button {
+                color:$textSecondaryColor;
+                font-size: $fontSize;
+                opacity: .7;
+                @include transition(color, $transitionDuration);
+
+                &:hover {
+                    opacity: 1;
+                    color: $accentTextColor;
+                }
+            }
+        }
+
+
+        .p-monthpicker {
+            .p-monthpicker-month {
+                color: $textColor;
+
+                &.p-highlight {
+                    color: $accentTextColor;
+                    background-color: $accentColor;
+                }
+            }
+        }
+
+        &.p-datepicker-multiple-month {
+            width: auto;
+            .p-datepicker-group {
+                border-right: 1px solid $dividerColor;
+                padding-top: 0;
+                padding-bottom: 0;
+
+                .p-datepicker-calendar-container {
+                    tbody {
+                        padding-right: .25em;
+                        padding-left: .25em;
+                    }
+                }
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                    border-right: 0 none;
+                }
+            }
+        }
+    }
+
+    #p-datepicker-div {
+        @include overlay-input-shadow();
+    }
+    
+    .p-rating {
+        font-size: inherit;
+        min-height: 1.5em;
+        
+        .pi-ban {
+            @include material-icon("cancel");
+            color: $textSecondaryColor;
+        }
+
+        .pi-star {
+            @include material-icon("star");
+            color: $textSecondaryColor;
+        }
+        
+        .pi-star-o {
+            @include material-icon("star_border");
+            color: $textSecondaryColor;
+        }
+    }
+    
+    .p-chips {
+
+        > ul.p-inputtext {
+
+            .p-chips-input-token {
+                padding-bottom: 2px;
+                margin-bottom: 2px;
+
+                > input {
+                    padding: 0;
+                    font-size: $fontSize;
+                    margin: 0;
+                    background: transparent;
+                    vertical-align: bottom;
+                }
+
+                input.p-disabled {
+                    width: 0;
+                }
+            }
+
+            .p-chips-token {
+                @include corner-all();
+                display: inline-block;
+                float: none;
+                vertical-align: middle;
+                font-size: 1em;
+                margin-bottom: 2px;
+
+                .p-chips-token-label {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+
+            &.p-disabled {
+                border-bottom: 1px dotted;
+            }
+        }
+    }
+    
+    .p-password-panel {
+        @include corner-all();
+
+        &.p-shadow {
+            @include overlay-input-shadow();
+        }
+    }
+    
+    .p-fileupload {
+        .p-fileupload-buttonbar {
+            @include header();
+            @include corner-top();
+            padding: $headerPadding;
+            
+            .pi-arrowreturnthick-1-n {
+                @include icon_override('file_upload');
+            }
+            
+            .p-button {
+                @include corner-all();
+                background-color: $accentColor;
+                
+                &:enabled:hover {
+                    background-color: $accentDarkColor;
+                }
+
+                &.p-fileupload-choose {
+                    .pi {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+        
+        .p-fileupload-content {
+            @include content();
+            @include corner-bottom();
+
+            .p-messages-error {
+                .pi {
+                    color: $errorTextColor;
+                }
+            }
+        }
+    }
+    
+    .p-fileupload-choose:not(.p-disabled):hover,
+    .p-fileupload-choose.p-focus {
+        &.p-button {
+            background-color: darken($accentColor, 5%);
+        }
+    }
+    
+    .p-fileupload-choose:not(.p-disabled):active {
+        &.p-button {
+            background-color: darken($accentColor, 10%);
+        }
+    }
+    
+    .p-editor-container {
+        .p-editor-toolbar {
+            background-color: $editorHeaderBgColor;
+        }
+        
+        .ql-picker.ql-expanded {
+            .ql-picker-label {
+                color: $editorExpandLabelColor;
+            }
+        }
+    }
+    
+    /* InputGroup */
+    .p-inputgroup {
+        .p-inputgroup-addon {
+            border-width: 0 0 1px 0;
+            border-color: $inputBorderColor;
+            color: $textSecondaryColor;
+            padding: 2px 2px 1px 2px;
+            align-self: flex-end;
+
+            > i {
+                @include flex();
+                align-self: flex-end;
+            }
+        }
+
+        .p-inputtext {
+            align-self: flex-end;
+        }
+
+        .md-inputfield {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            width: 1%;
+            display: inherit;
+
+            label {
+                top: 5px;
+            }
+        }
+
+        .p-checkbox, .p-radiobutton {
+            margin-bottom: .125em;
+        }
+    }
+
+    .p-fluid {
+        .p-inputgroup {
+            .p-button-icon-only {
+                width: 1.643em;
+                height: 1.643em;
+                padding: 0;
+                line-height: 1;
+            }
+        }
+    }
+    
+    /* Validation */
+    .p-inputtext.p-error,
+    .p-dropdown.p-error,
+    .p-autocomplete.p-error > .p-inputtext,
+    .p-calendar.p-error > .p-inputtext,
+    .p-chips.p-error > .p-inputtext,
+    .p-checkbox.p-error > .p-checkbox-box,
+    .p-radiobutton.p-error > .p-radiobutton-box,
+    .p-inputswitch.p-error,
+    .p-listbox.p-error,
+    .p-multiselect.p-error,
+    .p-spinner.p-error > .p-inputtext,
+    .p-selectbutton.p-error > .p-button,
+    .p-togglebutton.p-error > .p-button  {
+        background-image: linear-gradient(to bottom, $errorColor, $errorColor), linear-gradient(to bottom, $errorColor, $errorColor);
+    }
+
+    .p-calendar .p-datepicker {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    body {                
+        .p-buttonset {
+            > .p-button {
+                display: block;
+                @include border-radius(0);
+                
+                &:first-child {
+                    @include border-radius-top($borderRadius);
+                }
+                
+                &:last-child {
+                    @include border-radius-bottom($borderRadius);
+                }
+            }
+        }
+        .p-splitbutton {
+            > .p-button {
+                display: inline-block;
+
+                &:first-child {
+                    @include border-radius-top(0);
+                }
+                
+                &:last-child {
+                    @include border-radius-bottom(0);
+                }
+            }
+        }
+    }
+}

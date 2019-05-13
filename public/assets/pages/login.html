@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/x-icon" href="../layout/images/favicon.ico">
+    <title>PrimeReact - ULTIMA</title>
+
+    <!-- Layout CSS -->
+    <link rel="stylesheet" type="text/css" href="../theme/theme-indigo.css">
+    <link rel="stylesheet" type="text/css" href="../layout/css/layout-indigo.css">
+    <link rel="stylesheet" type="text/css" href="primereact.min.css">
+    
+    <!-- Ripple -->
+    <script src="../layout/js/ripple.js"></script>
+    
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var inputs = document.getElementsByTagName('input');
+
+            var addClass = function(element, className) {
+                if (element.classList)
+                    element.classList.add(className);
+                else
+                    element.className += ' ' + className;
+            },
+            removeClass = function(element, className) {
+                if (element.classList)
+                    element.classList.remove(className);
+                else
+                    element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            };
+
+            for(var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+
+                input.addEventListener('blur', function(event) {
+                    if(this.value != '') {
+                        addClass(this, 'p-state-filled');
+                    }
+                    else {
+                        removeClass(this, 'p-state-filled');
+                    }
+                });
+            }
+        }, false);
+    </script>
+  </head>
+
+  <!-- 3. Display the application -->
+  <body class="login-body">
+      <div class="card login-panel p-fluid">
+          <div class="p-grid">
+              <div class="p-col-12">
+                  <img src="../layout/images/logo-ultima.svg">
+              </div>
+              <div class="p-col-12">
+                    <span class="md-inputfield">
+                        <input type="text" autocomplete="off" class="p-inputtext p-corner-all p-state-default p-widget">
+                        <label>Username</label>
+                    </span>
+              </div>
+              <div class="p-col-12">
+                  <span class="md-inputfield">
+                      <input type="password" autocomplete="off" class="p-inputtext p-corner-all p-state-default p-widget">
+                      <label>Password</label>
+                  </span>
+              </div>
+              <div class="p-col-12">
+                  <button type="button" class="p-button p-widget p-state-default p-corner-all p-button-text-icon-left">
+                      <span class="p-button-icon-left pi-md-person"></span>
+                      <span class="p-button-text">Sign In</span>
+                  </button>
+                  <button type="button" class="secondary-btn p-button p-widget p-state-default p-corner-all p-button-text-icon-left">
+                      <span class="p-button-icon-left pi-md-help"></span>
+                      <span class="p-button-text ">Forgot Password</span>
+                  </button>
+              </div>
+          </div>
+             
+      </div>
+
+
+      <div class="login-footer">PrimeReact Ultima</div>
+  </body>
+
+</html>

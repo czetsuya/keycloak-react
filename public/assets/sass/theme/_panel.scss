@@ -1,0 +1,347 @@
+body {
+    .p-panel {
+        padding: 0;
+        @include content();
+        @include corner-all();
+        
+        .p-panel-titlebar {
+            @include header();
+            border: 0 none;
+            border-bottom: 1px solid $primaryColor;
+            padding: $headerPadding;
+            @include border-radius-top($borderRadius - 1);
+            @include border-radius-bottom(0);
+            
+            .p-panel-title {
+                line-height: 1.5em;
+            }
+                        
+            .p-panel-titlebar-icon {
+                position: relative;
+                width: 1.5em;
+                height: 1.5em;
+                color: $primaryTextColor;
+                margin: 0;
+                @include transition(background-color$transitionDuration);
+                @include border-radius(50%);
+                
+                &:hover {
+                    background-color: $primaryLightColor;
+                }
+
+                span {
+                    margin-top: 1px;
+                }
+            }
+        }
+        
+        .p-panel-content {
+            height: 100%;
+            padding: $contentPadding;
+            line-height: $contentLineHeight;
+        }
+        
+        .p-panel-footer {
+            padding: $headerPadding;
+            border: 0 none;
+            border-top: 1px solid $dividerColor;
+            margin: 0;
+        }
+    }
+    
+    .p-fieldset {
+        @include content();
+        @include corner-all();
+        padding: $contentPadding;
+                
+        .p-fieldset-legend {
+            @include corner-all();
+            padding: $headerPadding;
+            padding-left: .125em;
+            padding-right: .5em;
+            color: $primaryColor;
+            
+            .p-fieldset-toggler {
+                height: 1.5em;
+                width: 1.5em;
+                line-height: 1.5em;
+                background-color: $primaryColor;
+                color: $primaryTextColor;
+                font-size: 1.5em;
+                margin-right: .5em;
+                text-align: center;
+                @include border-radius(50%);
+                @include transition(background-color$transitionDuration);
+                @include content-shadow();
+
+                &:before {
+                    line-height: inherit;
+                }
+                
+                &:hover {
+                    background-color: $primaryDarkColor;
+                }
+            }
+            
+            .p-fieldset-legend-text {
+                color: $primaryColor;
+            }
+            
+            &.p-focus {
+                background-color: transparent;
+            }
+        }
+
+        .p-fieldset-content {
+            line-height: $contentLineHeight;
+        }
+    }
+        
+    .p-accordion {
+        .p-accordion-header {
+            @include border-radius($borderRadius);
+            a {
+                background-color: $primaryColor;
+                color: $primaryTextColor;
+                border: 1px solid transparent;
+                @include border-radius($borderRadius);
+                @include transition(background-color$transitionDuration);
+
+                .p-accordion-toggle-icon {
+                    color: $primaryTextColor;
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                a {
+                    background-color: $primaryDarkColor;
+                    color: $primaryTextColor;
+
+                    .p-accordion-toggle-icon {
+                        color: $primaryTextColor;
+                    }
+                }
+            }
+
+            &:not(.p-disabled).p-highlight {
+                margin-bottom: 0;
+
+                a {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                    @include border-radius-bottom(0);
+
+                    .p-accordion-toggle-icon {
+                        color: $accentTextColor;
+                    }
+                }
+
+                &:hover {
+                    a {
+                        background-color: $accentColor;
+                        color: $accentTextColor;
+
+                        .p-accordion-toggle-icon {
+                            color: $accentTextColor;
+                        }
+                    }
+                }
+            }
+        }
+
+        .p-accordion-content {
+            @include content();
+            padding: $contentPadding;
+            line-height: $contentLineHeight;
+            border-top: 0;
+            @include border-radius-top(0);
+            @include border-radius-bottom($borderRadius);
+        }
+    }
+        
+    .p-toolbar {
+        @include header();
+        background-color: $primaryDarkColor;
+        @include content-shadow();
+        padding: .625em;
+
+        .p-toolbar-separator {
+            vertical-align: middle;
+            margin: 0 .5em;
+        }
+
+        .pi {
+            color: inherit;
+        }
+    }
+    
+    .p-tabview {
+        @include content();
+        @include corner-all();
+        padding: 0;
+        
+        .p-tabview-nav {
+            @include header();
+            background-color: $contentBgColor;
+            border: 0 none;
+            @include border-radius(0);
+            
+            > li {
+                padding: 0;
+                @include transition(border-color$transitionDuration);
+                
+                > a {
+                    padding: $headerPadding;
+                    
+                    &:focus {
+                        outline: 0 none;
+                    }
+                }
+                
+                > .pi-times {
+                    @include icon_override('close');
+                    margin: .325em 0 0 0;
+                    @include transition(color$transitionDuration);
+                    color: $textSecondaryColor;
+                }
+                
+                .p-tabview-left-icon, .p-tabview-right-icon {
+                    color: $textSecondaryColor;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                
+                .p-tabview-title {
+                    line-height: 1.5em;
+                    vertical-align: middle;
+                    color: $textSecondaryColor;
+                }
+                
+                &:not(.p-highlight):not(.p-disabled):hover {
+                    background-color: $contentBgColor;;
+                }
+                
+                &.p-highlight {
+                    background-color: $contentBgColor;
+                    border-color: $accentColor;
+                    border-style: solid;
+
+                    .p-tabview-title {
+                        color: $primaryColor;
+                    }
+                    
+                    a {
+                        color: $primaryColor;
+                    }
+                    
+                    > .pi-times {
+                        @include icon_override('close');
+                        color: $accentColor;
+                    }
+                }
+                
+                &.p-tabview-outline {
+                    outline: 0 none;
+                    border-color: $accentLightColor;
+                }
+            }
+        }
+        
+        .p-tabview-panel {
+            padding: $contentPadding;
+            line-height: $contentLineHeight;
+        }
+        
+        &.p-tabview-top {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-top(4px);
+                border-bottom: 1px solid $dividerColor;
+                
+                > li {
+                    border-style: solid;
+                    border-width: 0 0 2px 0;
+                }
+            }
+        }
+        
+        &.p-tabview-bottom {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-bottom(4px);
+                border-top: 1px solid $dividerColor;
+                
+                > li {
+                    border-width: 2px 0 0 0;
+                }
+            }
+        }
+        
+        &.p-tabview-left {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-left($borderRadius + 1);
+                border-right: 1px solid $dividerColor;
+                
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 2px 0 0;
+                    
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+        
+        &.p-tabview-right {
+            > .p-tabview-nav {
+                padding: 0;
+                @include border-radius-right($borderRadius + 1);
+                border-left: 1px solid $dividerColor;
+                
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 0 0 2px;
+                    
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+                    
+                    &.p-highlight {
+                        > a {
+                            padding-left: 0.875em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-card {
+        @include content();
+        @include corner-all();
+        @include overlay-content-shadow();
+    }
+
+    .p-scrollpanel {
+        @include content();
+        @include corner-all();
+    }
+
+}
+
+@media (max-width: 640px) {
+    body {
+        .p-toolbar {
+            .p-toolbar-group-right {
+                margin-top: 1em;
+            }
+        }
+    }
+}

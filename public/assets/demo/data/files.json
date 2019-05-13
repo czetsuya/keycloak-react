@@ -1,0 +1,51 @@
+{
+    "data": 
+    [
+        {
+            "label": "Documents",
+            "data": "Documents Folder",
+            "expandedIcon": "pi-md-folder-open",
+            "collapsedIcon": "pi-md-folder",
+            "children": [{
+                    "label": "Work",
+                    "data": "Work Folder",
+                    "expandedIcon": "pi-md-folder-open",
+                    "collapsedIcon": "pi-md-folder",
+                    "children": [{"label": "Expenses.doc", "icon": "pi-md-insert-drive-file", "data": "Expenses Document"}, {"label": "Resume.doc", "icon": "pi-md-insert-drive-file", "data": "Resume Document"}]
+                },
+                {
+                    "label": "Home",
+                    "data": "Home Folder",
+                    "expandedIcon": "pi-md-folder-open",
+                    "collapsedIcon": "pi-md-folder",
+                    "children": [{"label": "Invoices.txt", "icon": "pi-md-insert-drive-file", "data": "Invoices for this month"}]
+                }]
+        },
+        {
+            "label": "Pictures",
+            "data": "Pictures Folder",
+            "expandedIcon": "pi-md-folder-open",
+            "collapsedIcon": "pi-md-folder",
+            "children": [
+                {"label": "barcelona.jpg", "icon": "pi-md-wallpaper", "data": "Barcelona Photo"},
+                {"label": "logo.jpg", "icon": "pi-md-wallpaper", "data": "PrimeFaces Logo"},
+                {"label": "primeui.png", "icon": "pi-md-wallpaper", "data": "PrimeUI Logo"}]
+        },
+        {
+            "label": "Movies",
+            "data": "Movies Folder",
+            "expandedIcon": "pi-md-folder-open",
+            "collapsedIcon": "pi-md-folder",
+            "children": [{
+                    "label": "Al Pacino",
+                    "data": "Pacino Movies",
+                    "children": [{"label": "Scarface", "icon": "pi-md-movie", "data": "Scarface Movie"}, {"label": "Serpico", "icon": "pi-md-movie", "data": "Serpico Movie"}]
+                },
+                {
+                    "label": "Robert De Niro",
+                    "data": "De Niro Movies",
+                    "children": [{"label": "Goodfellas", "icon": "pi-md-movie", "data": "Goodfellas Movie"}, {"label": "Untouchables", "icon": "pi-md-movie", "data": "Untouchables Movie"}]
+                }]
+        }
+    ]
+}

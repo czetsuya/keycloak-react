@@ -1,0 +1,87 @@
+@import '../_variables';
+
+$headerFontSize:1em;
+$headerPadding:.625em 1em;
+$headerBgColor:$primaryColor;
+$headerTextColor:#ffffff;
+$headerIconColor:#ffffff;
+
+$contentPadding:.625em 1em;
+$contentBgColor:#ffffff;
+$contentBorderColor:#d8d8d8;
+$contentLineHeight: 18px;
+
+// InputText
+$inputBorderColor:#bdbdbd;
+$inputPadding:2px 2px 1px 2px;
+$inputHeaderPadding:.625em 1em;
+$inputGroupAddonBgColor:#e6e6e6;
+$textboxBgColor:#f7f7f7;
+$inputBgColor:#ffffff;
+$inputFieldLabelTextColor:#999999;
+$inputFieldBoxBgColor:#f7f7f7;
+$inputFieldFillBgColor:#f7f7f7;
+$inputAutoFillBorderColor: #bdbdbd;
+
+// Input lists
+$listItemPadding:.625em 1em;
+$inputListItemFilterTextColor:#ffffff;
+
+//input switch
+$inputSwitchOffHandleBgColor:#ffffff;
+
+// Button
+$buttonFontSize:1em;
+$buttonTextColor:#ffffff;
+
+//radiobutton
+$radioButtonBorderColor:#757575;
+
+//checkbox
+$checkboxBorderColor:#757575;
+
+//editor
+$editorHeaderBgColor:#e8e8e8;
+$editorExpandLabelColor:#444444;
+
+//datatable
+$dataTableBorderColor:#cacaca;
+$dataTableFilterInputBgColor:#ffffff;
+$dataTableEditableCellInputBorderColor:#ffffff;
+$dataTableEditableCellInputColor:#ffffff;
+$dataTableRowBgColorEven:#f4f4f4;
+$dataTableEvenRowBgColor:#f4f4f4;
+
+//dataview
+$dataviewHeaderBgColor:#ffffff;
+
+//steps
+$stepsNumberBgColor:#757575;
+$stepsNumberColor:#ffffff;
+
+//messages, growl, toast
+$messageIconColor:#ffffff;
+$infoMessageBgColor:#2196F3;
+$infoMessageBorderColor:#2196F3;
+$infoMessageTextColor:#ffffff;
+
+$warnMessageBgColor:#ffc107;
+$warnMessageBorderColor:#ffc107;
+$warnMessageTextColor:#ffffff;
+
+$errorMessageBgColor:#e62a10;
+$errorMessageBorderColor:#e62a10;
+$errorMessageTextColor:#ffffff;
+
+$successMessageBgColor:#8BC34A;
+$successMessageBorderColor:#8BC34A;
+$successMessageTextColor:#ffffff;
+
+//tooltip
+$tooltipBgColor:#323232;
+
+//dialog
+$dialogHeaderBgColor:#ffffff;
+$dialogHeaderTextColor:$textColor;
+$dialogFooterButtonBgColor:#ffffff;
+$dialogFooterButtonTextColor:$textColor;

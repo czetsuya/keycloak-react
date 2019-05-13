@@ -1,0 +1,56 @@
+body {
+    .p-draggable-dragging.p-default {
+        padding: $headerPadding !important;
+        background-color: $primaryColor;
+    }
+    
+    .jqplot-target {
+        font-family: "Roboto","Helvetica Neue",sans-serif;
+    }
+    
+    .p-progressbar {
+        @include content();
+        @include corner-all();
+        height: .5em;
+        background-color: $primaryLightColor;
+        overflow: hidden;
+        border: 0 none;
+        
+        .p-progressbar-value {
+            @include header();
+            @include corner-all();
+            height: .5em;
+        }
+        
+        .p-progressbar-label {
+            display: none !important;
+        }
+    }
+    
+    .p-galleria {
+        .p-galleria-nav-prev {
+            left: 0;
+        }
+        
+        .p-galleria-nav-next {
+            right: 0;
+        }
+    }
+    
+    .p-inplace {
+        .p-inplace-display {
+            @include transition(background-color$transitionDuration);
+            @include border-radius(3px);
+            
+            &:hover {
+                background-color: $hoverBgColor;
+            }
+        }
+    }
+    
+    .p-terminal {
+        .p-terminal-input {
+            font-size: $fontSize;
+        }
+    }
+}
