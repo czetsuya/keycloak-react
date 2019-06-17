@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action) {
     case Dispatch.successAction(LIST): {
       return {
         ...state,
-        list: [...action.data._embedded.customers],
+        list: [...action.data],
       };
     }
     case Dispatch.successAction(RETRIEVE): {
