@@ -11,7 +11,7 @@ const DELETE = 'menu/DELETE';
 
 const initialState = {
   selected: {},
-  list: [],
+  customerList: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action) {
     case Dispatch.successAction(LIST): {
       return {
         ...state,
-        list: [...action.data._embedded.customers],
+        customerList: [...action.data._embedded.customers],
       };
     }
     case Dispatch.successAction(RETRIEVE): {

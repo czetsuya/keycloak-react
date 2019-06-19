@@ -4,7 +4,7 @@
 	"ssl-required": "none",
 	"resource": "primereact-client",
 	"credentials": {
-	  "secret": "9d7097fa-7df9-4ea8-aa0d-722bfb11d3d5"
+	  "secret": "f84b709c-1eab-4eb2-988a-ec4a005b8051"
 	},
 	"confidential-port": 0,
 	"disable-trust-manager": true,
