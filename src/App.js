@@ -5,11 +5,10 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import SecurityContext from './pages/routing/SecurityContext';
-
 import 'fullcalendar/dist/fullcalendar.css';
 import './ripple.js';
 
+import SecurityContext from './pages/routing/SecurityContext';
 import LandingPageSwitcher from './pages/routing/LandingPageSwitcher.js';
 
 import Access from './pages/public/Access';
@@ -19,6 +18,7 @@ import NotFound from './pages/public/NotFound';
 
 import Dashboard from './pages/secure/Dashboard';
 import CustomerList from './pages/secure/Customers/CustomerList';
+import Customer from './pages/secure/Customers/Customer';
 import FormsDemo from './pages/secure/FormsDemo';
 import SampleDemo from './pages/secure/SampleDemo';
 import DataDemo from './pages/secure/DataDemo';
@@ -66,6 +66,8 @@ class App extends React.Component {
               {/* End Public Routes */}
               {/* Secure Routes */}
               <Route path="/dashboard" component={Dashboard} />
+              <Route path="/customers/:type/:id" component={Customer} />
+              <Route path="/customers/:type" component={Customer} />
               <Route path="/customers" component={CustomerList} />
               <Route path="/forms" component={FormsDemo} />
               <Route path="/sample" component={SampleDemo} />

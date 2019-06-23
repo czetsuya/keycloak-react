@@ -6,6 +6,7 @@ import SecurityContext from './SecurityContext';
 export const withSecurity = SecureComponent => props => {
   const { keycloak, authenticated, setAuth } = useContext(SecurityContext);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
     () => {
       (async () => {
@@ -22,7 +23,7 @@ export const withSecurity = SecureComponent => props => {
         setAuth(keycloak);
       })();
     },
-    [],
+    [setAuth],
   );
 
   if (keycloak) {

@@ -7,12 +7,12 @@ class Customers extends BaseService {
   }
 
   retrieve(customer) {
-    return this.serviceConnector().callApi({url: `/customers/${customer.id}`});
+    return this.serviceConnector().callApi({url: `/customers/customer/${customer.id}`});
   }
 
   create(customer) {
     return this.serviceConnector().invokeRequest({
-      url: '/customers',
+      url: '/customers/customer',
       method: 'POST',
       data: customer,
     });
@@ -20,7 +20,7 @@ class Customers extends BaseService {
 
   update(customer) {
     return this.serviceConnector().invokeRequest({
-      url: '/customers',
+      url: `/customers/customer/${customer.id}`,
       method: 'PUT',
       data: customer,
     });
@@ -28,7 +28,7 @@ class Customers extends BaseService {
 
   remove(customer) {
     return this.serviceConnector().invokeRequest({
-      url: `/customers/${customer.id}`,
+      url: `/customers/customer/${customer.id}`,
       method: 'DELETE',
     });
   }

@@ -23,13 +23,8 @@ export default class Dispatch {
   }
 
   static done(dispatch, type, response) {
-    /* eslint-disable no-console */
-    console.log('\n\n=================================');
-    console.log('Dispatch done');
-    console.log('type : ', type);
-    console.log('response : ', response);
-    console.log('=================================\n\n\n');
-    /* eslint-enable */
+	  console.log('--------')
+	  console.log(response.result)
     if (response.status === SUCCESS) {
       Dispatch.success(dispatch, type, response.result);
     } else if (response.status === FAIL && response.error.type === FATAL) {

@@ -2,7 +2,6 @@ import Dispatch from '../Dispatch';
 import menuContent from '../data/menu-config';
 
 const GET_MENU_CONTENT = 'menu/GET_MENU_CONTENT';
-const SET_MENU_SCROLLER = 'menu/SET_MENU_SCROLLER';
 const TOGGLE = 'menu/TOGGLE';
 const TOGGLE_CLICKED = 'menu/TOGGLE_CLICKED';
 
@@ -48,12 +47,6 @@ export default function reducer(state = initialState, action) {
         ],
       };
     }
-    case Dispatch.successAction(SET_MENU_SCROLLER): {
-      return {
-        ...state,
-        menuScroller: action.data,
-      };
-    }
     case Dispatch.successAction(TOGGLE): {
       return {
         ...state,
@@ -75,10 +68,6 @@ export const toggleClicked = clickedComponent => dispatch => {
 export const getMenuContent = () => dispatch => {
   const menu = menuContent(dispatch, toggle);
   Dispatch.success(dispatch, GET_MENU_CONTENT, { menu });
-};
-
-export const setMenuScroller = menuScroller => dispatch => {
-  Dispatch.success(dispatch, SET_MENU_SCROLLER, menuScroller);
 };
 
 export const toggle = toggledState => dispatch => {

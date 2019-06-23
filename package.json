@@ -8,6 +8,7 @@
 		"babel-polyfill": "6.26.0",
 		"chart.js": "2.7.3",
 		"classnames": "^2.2.6",
+		"formik": "^1.5.7",
 		"fullcalendar": "4.0.0-alpha.2",
 		"i18next": "^15.0.9",
 		"keycloak-js": "^6.0.1",

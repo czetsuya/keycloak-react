@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { isValidElementType } from 'react-is';
-import { ScrollPanel } from 'primereact/components/scrollpanel/ScrollPanel';
 import AppBreadcrumb from './AppBreadcrumb';
 import AppRightPanel from './AppRightPanel';
 import AppTopbar from './AppTopbar';
 import AppMenu from './AppMenu';
 import { AppInlineProfile } from './AppInlineProfile';
 import { AppFooter } from './AppFooter';
+import ScrollPanel from './ScrollPanel';
 import * as MenuActions from '../../framework/redux/modules/Menu';
 import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
@@ -17,13 +17,23 @@ import '../../App.css';
 
 const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
   const { dispatch } = componentProps;
-  const [menuScroller, setMenuScroller] = useState(null);
-
   const { toggle, clicked } = menuState;
+
+  const isDesktop = () => {
+    return window.innerWidth > 1024;
+  };
+
+  const isHorizontal = () => {
+    return toggle.layout === 'horizontal';
+  };
+
+  const isSlim = () => {
+    return toggle.layout === 'slim';
+  };
 
   useEffect(() => {
     dispatch(MenuActions.getMenuContent());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!clicked.topbarItem) {
@@ -39,7 +49,8 @@ const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
     if (!clicked.rightPanel) {
       dispatch(MenuActions.toggle({ rightPanelActive: false }));
     }
-  }, [clicked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, clicked]);
 
   const onMenuClick = () => {
     dispatch(MenuActions.toggleClicked({ menu: true }));
@@ -85,12 +96,6 @@ const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
     if (!event.item.items && (isHorizontal() || isSlim())) {
       dispatch(MenuActions.toggle({ menuActive: false }));
     }
-
-    if (event.item.items && !isHorizontal() && menuScroller) {
-      setTimeout(() => {
-        menuScroller.moveBar();
-      }, 500);
-    }
   };
 
   const onRootMenuItemClick = () => {
@@ -127,18 +132,6 @@ const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
     }));
   };
 
-  const isDesktop = () => {
-    return window.innerWidth > 1024;
-  };
-
-  const isHorizontal = () => {
-    return toggle.layout === 'horizontal';
-  };
-
-  const isSlim = () => {
-    return toggle.layout === 'slim';
-  };
-
   const layoutContainerClassName = classNames('layout-container', {
     'menu-layout-static': toggle.layout !== 'overlay',
     'menu-layout-overlay': toggle.layout === 'overlay',
@@ -167,12 +160,7 @@ const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
           onClickAway={hideOverlay('topbarItem')}
         />
         <div className={menuClassName} onClick={onMenuClick}>
-          <ScrollPanel
-            style={{ height: '100%' }}
-            ref={el => {
-              setMenuScroller(el);
-            }}
-          >
+          <ScrollPanel>
             <div className="menu-scroll-content">
               {toggle.profileMode === 'inline' && toggle.layout !== 'horizontal' && <AppInlineProfile />}
               <AppMenu

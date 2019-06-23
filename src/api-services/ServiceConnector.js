@@ -4,6 +4,7 @@ import Response, { FAIL, SUCCESS } from '../models/Response';
 
 const submitRequest = async (options) => {
   try {
+	  console.log(options)
     const request = await axios(options);
     const data = await request.data;
     const code = await request.status;

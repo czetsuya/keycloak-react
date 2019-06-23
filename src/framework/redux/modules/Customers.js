@@ -1,17 +1,18 @@
 import Dispatch from '../Dispatch';
 import CustomerService from '../../../api-services/ff-api/Customers';
+import { SUCCESS } from '../../../models/Response';
 
 const LIST = 'customers/LIST';
-const RETRIEVE = 'customers/RETRIEVE';
-/*
 const CREATE = 'menu/CREATE';
+const RETRIEVE = 'customers/RETRIEVE';
 const UPDATE = 'menu/UPDATE';
+/*
 const DELETE = 'menu/DELETE';
 */
 
 const initialState = {
   selected: {},
-  customerList: [],
+  list: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,7 +20,7 @@ export default function reducer(state = initialState, action) {
     case Dispatch.successAction(LIST): {
       return {
         ...state,
-        customerList: [...action.data._embedded.customers],
+        list: [...action.data._embedded.customers],
       };
     }
     case Dispatch.successAction(RETRIEVE): {
@@ -41,9 +42,30 @@ export const list = () => dispatch => {
     });
 };
 
-export const retrieve = customer => dispatch => {
-  CustomerService.retrieve(customer)
+export const create = customer => dispatch => {
+  Dispatch.loading(dispatch, CREATE);
+  CustomerService.create(customer)
     .then(result => {
-      Dispatch.done(dispatch, RETRIEVE, customer);
+      Dispatch.done(dispatch, CREATE, result);
+    });
+};
+
+export const retrieve = customer => dispatch => {
+  Dispatch.loading(dispatch, RETRIEVE);
+  if (!!customer && !!customer.id) {
+    CustomerService.retrieve(customer)
+      .then(result => {
+        Dispatch.done(dispatch, RETRIEVE, result);
+      });
+  } else {
+    Dispatch.done(dispatch, RETRIEVE, { status: SUCCESS, result: {} });
+  }
+};
+
+export const update = customer => dispatch => {
+  Dispatch.loading(dispatch, UPDATE);
+  CustomerService.update(customer)
+    .then(result => {
+      Dispatch.done(dispatch, UPDATE, result);
     });
 };
