@@ -4,6 +4,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import ApplicationStore from './framework/redux/ApplicationStore';
 import App from './App';
+import Loader from 'react-loader-spinner'
 
 class AppWrapper extends Component {
 	constructor(props) {
@@ -14,7 +15,7 @@ class AppWrapper extends Component {
 	render() {
 		return (
 			<Provider store={ApplicationStore}>
-				<PersistGate loading={null} persistor={this.persistor}>
+				<PersistGate loading={<Loader type="Triangle" />} persistor={this.persistor}>
 					<App />
 				</PersistGate>
 			</Provider>
