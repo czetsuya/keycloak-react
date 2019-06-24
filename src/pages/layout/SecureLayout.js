@@ -1,5 +1,4 @@
-import React, { Component, useEffect } from 'react';
-import {Route} from 'react-router-dom';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -9,22 +8,9 @@ import {AppMenu} from './AppMenu';
 import { AppInlineProfile } from './AppInlineProfile';
 import { AppFooter } from './AppFooter';
 import {ScrollPanel} from 'primereact/components/scrollpanel/ScrollPanel';
-import * as MenuActions from '../../framework/redux/modules/Menu';
 import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
 import '../../App.css';
-import Dashboard from '../secure/Dashboard';
-import FormsDemo from '../secure/FormsDemo';
-import SampleDemo from '../secure/SampleDemo';
-import DataDemo from '../secure/DataDemo';
-import PanelsDemo from '../secure/PanelsDemo';
-import OverlaysDemo from '../secure/OverlaysDemo';
-import MenusDemo from '../secure/MenusDemo';
-import MessagesDemo from '../secure/MessagesDemo';
-import ChartsDemo from '../secure/ChartsDemo';
-import MiscDemo from '../secure/MiscDemo';
-import EmptyPage from '../secure/EmptyPage';
-import Documentation from "../secure/Documentation";
 
 class SecureLayout extends Component {
 
@@ -98,6 +84,7 @@ class SecureLayout extends Component {
     createMenu() {
         this.menu = [
             {label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
+            { label: 'Customers', icon: 'pi pi-fw pi-list', to: '/customers' },
             {
                 label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
                 items: [
@@ -237,18 +224,7 @@ class SecureLayout extends Component {
                 </div>
 
                 <div className="layout-main">
-                    <Route path="/" exact component={Dashboard} />
-                    <Route path="/forms" component={FormsDemo} />
-                    <Route path="/sample" component={SampleDemo} />
-                    <Route path="/data" component={DataDemo} />
-                    <Route path="/panels" component={PanelsDemo} />
-                    <Route path="/overlays" component={OverlaysDemo} />
-                    <Route path="/menus" component={MenusDemo} />
-                    <Route path="/messages" component={MessagesDemo} />
-                    <Route path="/charts" component={ChartsDemo} />
-                    <Route path="/misc" component={MiscDemo} />
-                    <Route path="/empty" component={EmptyPage} />
-                    <Route path="/documentation" component={Documentation} />
+                	<this.props.SecureComponent {...this.props } />
                 </div>
 
                 <AppFooter />
@@ -261,7 +237,6 @@ class SecureLayout extends Component {
 
 SecureLayout.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  menuState: PropTypes.shape({}).isRequired,
   SecureComponent: (props, propName) => {
     if (props[propName] && !isValidElementType(props[propName])) {
       return new Error(

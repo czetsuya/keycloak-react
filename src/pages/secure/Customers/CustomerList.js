@@ -34,8 +34,8 @@ const CustomerList = ({ dispatch, customers, history }) => {
   const actionButtons = (rowData) => {
     return (
       <div>
-        <Button type="button" icon="pi-md-search" style={styles.viewButton} onClick={viewCustomer(rowData)} />
-        <Button type="button" icon="pi-md-pencil" onClick={editCustomer(rowData)} />
+        <Button type="button" icon="pi pi-search" style={styles.viewButton} onClick={viewCustomer(rowData)} />
+        <Button type="button" icon="pi pi-pencil" onClick={editCustomer(rowData)} />
       </div>
     );
   };
