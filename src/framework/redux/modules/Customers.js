@@ -15,7 +15,7 @@ const initialState = {
   list: [],
 };
 
-export default function reducer(state = {selected: {}, list: []}, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case Dispatch.successAction(LIST): {
       return {
