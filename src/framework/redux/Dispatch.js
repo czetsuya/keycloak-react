@@ -23,8 +23,6 @@ export default class Dispatch {
   }
 
   static done(dispatch, type, response) {
-	  console.log('--------')
-	  console.log(response.result)
     if (response.status === SUCCESS) {
       Dispatch.success(dispatch, type, response.result);
     } else if (response.status === FAIL && response.error.type === FATAL) {

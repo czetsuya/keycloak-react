@@ -15,12 +15,12 @@ const initialState = {
   list: [],
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = {selected: {}, list: []}, action) {
   switch (action.type) {
     case Dispatch.successAction(LIST): {
       return {
         ...state,
-        list: [...action.data._embedded.customers],
+        list: [...action.data],
       };
     }
     case Dispatch.successAction(RETRIEVE): {

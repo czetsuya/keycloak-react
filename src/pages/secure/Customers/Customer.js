@@ -7,7 +7,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { withSecurity } from '../../routing/SecureRoutes';
 import { withSecureLayout } from '../../layout/SecureLayout';
-import * as CustomerActions from '../../../framework/redux/modules/Customers';
+import * as CustomerActions from '../../../framework/redux/modules/Customers'
 
 const styles = {
   cancelButton: { marginRight: '.25em' },

@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { isValidElementType } from 'react-is';
-import {AppTopbar} from './AppTopbar';
-import {AppMenu} from './AppMenu';
-import { AppInlineProfile } from './AppInlineProfile';
-import { AppFooter } from './AppFooter';
 import {ScrollPanel} from 'primereact/components/scrollpanel/ScrollPanel';
+import * as MenuActions from '../../framework/redux/modules/Menu';
 import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
 import '../../App.css';
+import {AppTopbar} from '../../AppTopbar';
+import {AppFooter} from '../../AppFooter';
+import {AppMenu} from '../../AppMenu';
+import {AppInlineProfile} from '../../AppInlineProfile';
 
 class SecureLayout extends Component {
 
@@ -83,8 +84,8 @@ class SecureLayout extends Component {
 
     createMenu() {
         this.menu = [
-            {label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '/'}},
-            { label: 'Customers', icon: 'pi pi-fw pi-list', to: '/customers' },
+        	{label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
+        	{label: 'Customers', icon: 'pi pi-fw pi-list', command: () => {window.location = '#/customers'}},
             {
                 label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
                 items: [
@@ -164,7 +165,7 @@ class SecureLayout extends Component {
                     }
                 ]
             },
-            {label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {window.location = "/documentation"}},
+            {label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {window.location = "#/documentation"}},
             {label: 'View Source', icon: 'pi pi-fw pi-search', command: () => {window.location = "https://github.com/primefaces/sigma"}}
         ];
     }
@@ -224,7 +225,7 @@ class SecureLayout extends Component {
                 </div>
 
                 <div className="layout-main">
-                	<this.props.SecureComponent {...this.props } />
+                    <this.props.SecureComponent {...this.props} />
                 </div>
 
                 <AppFooter />
@@ -237,6 +238,7 @@ class SecureLayout extends Component {
 
 SecureLayout.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  menuState: PropTypes.shape({}).isRequired,
   SecureComponent: (props, propName) => {
     if (props[propName] && !isValidElementType(props[propName])) {
       return new Error(
@@ -246,7 +248,7 @@ SecureLayout.propTypes = {
   },
 };
 
-const ConnectedLayout = connect()(SecureLayout);
+const ConnectedLayout = connect(({ menu }) => ({ menuState: menu }))(SecureLayout);
 
 export const withSecureLayout = SecureComponent => props => (
   <ConnectedLayout {...props} SecureComponent={SecureComponent} />
