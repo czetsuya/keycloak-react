@@ -1,7 +1,7 @@
 {
-  "name": "ultima-react",
-  "version": "3.0.0",
-  "homepage": "/ultima-react",
+  "name": "keycloak-react",
+  "version": "0.0.1",
+  "homepage": "http:///ultima-react",
   "private": true,
   "dependencies": {
     "axios": "^0.15.3",
@@ -50,5 +50,20 @@
   ],
   "devDependencies": {
     "typescript": "^3.4.2"
+  },
+  "description": "A demo project created to demonstrate how a react project can be secured using a Keycloak server via authorization token.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/czetsuya/keycloak-react.git"
+  },
+  "keywords": [
+    "react",
+    "keycloak"
+  ],
+  "author": "Edward P. Legaspi <czetsuya@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/czetsuya/keycloak-react/issues"
   }
 }
