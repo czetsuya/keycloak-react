@@ -17,41 +17,21 @@ export class AppInlineProfile extends Component {
     }
 
     render() {
-        return  <div>
-                    <div className={classNames('profile', {'profile-expanded': this.state.expanded})}>
-                        <button className="p-link" onClick={this.onClick}>
-                            <img className="profile-image" src="assets/layout/images/avatar.png" alt="Profile"/>
-                            <span className="profile-name">Jane Williams</span>
-                            <i className="material-icons">keyboard_arrow_down</i>
-                        </button>
-                    </div>
-                    
-                    <ul className="ultima-menu profile-menu">
-                        <li role="menuitem">
-                            <button  className="p-link ripplelink" tabIndex={this.state.expanded ? null : '-1'}>
-                                <i className="material-icons">person</i>
-                                <span>Profile</span>
-                            </button>
-                        </li>
-                        <li role="menuitem">
-                            <button  className="p-link ripplelink" tabIndex={this.state.expanded ? null : '-1'}>
-                                <i className="material-icons">security</i>
-                                <span>Privacy</span>
-                            </button>
-                        </li>
-                        <li role="menuitem">
-                            <button  className="p-link ripplelink" tabIndex={this.state.expanded ? null : '-1'}>
-                                <i className="material-icons">settings_application</i>
-                                <span>Settings</span>
-                            </button>
-                        </li>
-                        <li role="menuitem">
-                            <button  className="p-link ripplelink" tabIndex={this.state.expanded ? null : '-1'}>
-                                <i className="material-icons">power_settings_new</i>
-                                <span>Logout</span>
-                            </button>
-                        </li>
-                    </ul>
+        return  (
+            <div className="profile">
+                <div>
+                    <img src="assets/layout/images/profile.png" alt="" />
                 </div>
+                <button className="p-link profile-link" onClick={this.onClick}>
+                    <span className="username">Claire Williams</span>
+                    <i className="pi pi-fw pi-cog"/>
+                </button>
+                <ul className={classNames({'profile-expanded': this.state.expanded})}>
+                    <li><button className="p-link"><i className="pi pi-fw pi-user"/><span>Account</span></button></li>
+                    <li><button className="p-link"><i className="pi pi-fw pi-inbox"/><span>Notifications</span><span className="menuitem-badge">2</span></button></li>
+                    <li><button className="p-link"><i className="pi pi-fw pi-power-off"/><span>Logout</span></button></li>
+                </ul>
+            </div>
+        );
     }
 }

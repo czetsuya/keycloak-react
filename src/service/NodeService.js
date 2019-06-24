@@ -18,11 +18,12 @@ export class NodeService {
                 _this.setState({ files: data });
                 return data;
             });
+
     }
 
     getTreeNodes() {
         return axios.get('assets/demo/data/treenodes.json')
-                .then(res => res.data.root);
+            .then(res => res.data.root);
     }
 
 	getTreeTableNodes() {

@@ -1,200 +1,263 @@
-import React, { useEffect } from 'react';
+import React, { Component, useEffect } from 'react';
+import {Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { isValidElementType } from 'react-is';
-import AppBreadcrumb from './AppBreadcrumb';
-import AppRightPanel from './AppRightPanel';
-import AppTopbar from './AppTopbar';
-import AppMenu from './AppMenu';
+import {AppTopbar} from './AppTopbar';
+import {AppMenu} from './AppMenu';
 import { AppInlineProfile } from './AppInlineProfile';
 import { AppFooter } from './AppFooter';
-import ScrollPanel from './ScrollPanel';
+import {ScrollPanel} from 'primereact/components/scrollpanel/ScrollPanel';
 import * as MenuActions from '../../framework/redux/modules/Menu';
 import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
 import '../../App.css';
+import Dashboard from '../secure/Dashboard';
+import FormsDemo from '../secure/FormsDemo';
+import SampleDemo from '../secure/SampleDemo';
+import DataDemo from '../secure/DataDemo';
+import PanelsDemo from '../secure/PanelsDemo';
+import OverlaysDemo from '../secure/OverlaysDemo';
+import MenusDemo from '../secure/MenusDemo';
+import MessagesDemo from '../secure/MessagesDemo';
+import ChartsDemo from '../secure/ChartsDemo';
+import MiscDemo from '../secure/MiscDemo';
+import EmptyPage from '../secure/EmptyPage';
+import Documentation from "../secure/Documentation";
 
-const SecureLayout = ({ SecureComponent, menuState, ...componentProps }) => {
-  const { dispatch } = componentProps;
-  const { toggle, clicked } = menuState;
+class SecureLayout extends Component {
 
-  const isDesktop = () => {
-    return window.innerWidth > 1024;
-  };
+    constructor() {
+        super();
+        this.state = {
+            layoutMode: 'static',
+            layoutColorMode: 'dark',
+            staticMenuInactive: false,
+            overlayMenuActive: false,
+            mobileMenuActive: false
+        };
 
-  const isHorizontal = () => {
-    return toggle.layout === 'horizontal';
-  };
-
-  const isSlim = () => {
-    return toggle.layout === 'slim';
-  };
-
-  useEffect(() => {
-    dispatch(MenuActions.getMenuContent());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (!clicked.topbarItem) {
-      dispatch(MenuActions.toggle({ activeTopbarItem: null, topbarMenuActive: false }));
+        this.onWrapperClick = this.onWrapperClick.bind(this);
+        this.onToggleMenu = this.onToggleMenu.bind(this);
+        this.onSidebarClick = this.onSidebarClick.bind(this);
+        this.onMenuItemClick = this.onMenuItemClick.bind(this);
+        this.createMenu();
     }
 
-    if (!clicked.menu) {
-      if (isHorizontal() || isSlim()) {
-        dispatch(MenuActions.toggle({ menuActive: false }));
-      }
+    onWrapperClick(event) {
+        if (!this.menuClick) {
+            this.setState({
+                overlayMenuActive: false,
+                mobileMenuActive: false
+            });
+        }
+
+        this.menuClick = false;
     }
 
-    if (!clicked.rightPanel) {
-      dispatch(MenuActions.toggle({ rightPanelActive: false }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, clicked]);
+    onToggleMenu(event) {
+        this.menuClick = true;
 
-  const onMenuClick = () => {
-    dispatch(MenuActions.toggleClicked({ menu: true }));
-  };
-
-  const onMenuButtonClick = () => {
-    dispatch(MenuActions.toggleClicked({ menu: true }));
-    dispatch(MenuActions.toggle({
-      rotateMenuButton: !toggle.rotateMenuButton,
-      topbarMenuActive: false,
-    }));
-
-    if (toggle.layout === 'overlay') {
-      dispatch(MenuActions.toggle({ overlayMenuActive: !toggle.overlayMenuActive }));
-    } else {
-      if (isDesktop()) {
-        dispatch(MenuActions.toggle({ staticMenuDesktopInactive: !toggle.staticMenuDesktopInactive }));
-      } else {
-        dispatch(MenuActions.toggle({ staticMenuMobileActive: !toggle.staticMenuMobileActive }));
-      }
-    }
-  };
-
-  const onTopbarMenuButtonClick = () => {
-    dispatch(MenuActions.toggleClicked({ topbarItem: true }));
-    dispatch(MenuActions.toggle({ topbarMenuActive: !toggle.topbarMenuActive }));
-  };
-
-  const onTopbarItemClick = event => {
-    dispatch(MenuActions.toggleClicked({ topbarItem: true }));
-    if (toggle.activeTopbarItem === event.item) {
-      dispatch(MenuActions.toggle({ activeTopbarItem: null }));
-    } else {
-      dispatch(MenuActions.toggle({ activeTopbarItem: event.item }));
-    }
-  };
-
-  const onMenuItemClick = event => {
-    if (!event.item.items) {
-      hideOverlayMenu();
+        if (this.isDesktop()) {
+            if (this.state.layoutMode === 'overlay') {
+                this.setState({
+                    overlayMenuActive: !this.state.overlayMenuActive
+                });
+            }
+            else if (this.state.layoutMode === 'static') {
+                this.setState({
+                    staticMenuInactive: !this.state.staticMenuInactive
+                });
+            }
+        }
+        else {
+            const mobileMenuActive = this.state.mobileMenuActive;
+            this.setState({
+                mobileMenuActive: !mobileMenuActive
+            });
+        }
+       
+        event.preventDefault();
     }
 
-    if (!event.item.items && (isHorizontal() || isSlim())) {
-      dispatch(MenuActions.toggle({ menuActive: false }));
+    onSidebarClick(event) {
+        this.menuClick = true;
+        setTimeout(() => {this.layoutMenuScroller.moveBar(); }, 500);
     }
-  };
 
-  const onRootMenuItemClick = () => {
-    dispatch(MenuActions.toggle({ menuActive: !toggle.menuActive }));
-  };
-
-  const onRightPanelButtonClick = event => {
-    dispatch(MenuActions.toggleClicked({ rightPanel: true }));
-    dispatch(MenuActions.toggle({ rightPanelActive: !toggle.rightPanelActive }));
-    event.preventDefault();
-  };
-
-  const onRightPanelClick = () => {
-    dispatch(MenuActions.toggleClicked({ rightPanel: true }));
-  };
-
-  const hideOverlay = clickedComponent => (clickTarget) => {
-    if (clicked[clickedComponent]) {
-      if (clickedComponent === 'menu' && clickTarget === 'menuToggle') {
-        return;
-      }
-      dispatch(MenuActions.toggleClicked({ [clickedComponent]: false }));
-      if (toggle.layout === 'overlay') {
-        hideOverlayMenu();
-      }
+    onMenuItemClick(event) {
+        if(!event.item.items) {
+            this.setState({
+                overlayMenuActive: false,
+                mobileMenuActive: false
+            })
+        }
     }
-  };
 
-  const hideOverlayMenu = () => {
-    dispatch(MenuActions.toggle({
-      rotateMenuButton: false,
-      overlayMenuActive: false,
-      staticMenuMobileActive: false,
-    }));
-  };
+    createMenu() {
+        this.menu = [
+            {label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
+            {
+                label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
+                items: [
+                    {label: 'Static Menu', icon: 'pi pi-fw pi-bars',  command: () => this.setState({layoutMode: 'static'}) },
+                    {label: 'Overlay Menu', icon: 'pi pi-fw pi-bars',  command: () => this.setState({layoutMode: 'overlay'}) }
+                ]
+            },
+            {
+                label: 'Menu Colors', icon: 'pi pi-fw pi-align-left',
+                items: [
+                    {label: 'Dark', icon: 'pi pi-fw pi-bars',  command: () => this.setState({layoutColorMode: 'dark'}) },
+                    {label: 'Light', icon: 'pi pi-fw pi-bars',  command: () => this.setState({layoutColorMode: 'light'}) }
+                ]
+            },
+            {
+                label: 'Components', icon: 'pi pi-fw pi-globe', badge: '9',
+                items: [
+					{label: 'Sample Page', icon: 'pi pi-fw pi-th-large', to: '/sample'},
+					{label: 'Forms', icon: 'pi pi-fw pi-file', to: '/forms'},
+					{label: 'Data', icon: 'pi pi-fw pi-table', to: '/data'},
+					{label: 'Panels', icon: 'pi pi-fw pi-list', to: '/panels'},
+					{label: 'Overlays', icon: 'pi pi-fw pi-clone', to: '/overlays'},
+					{label: 'Menus', icon: 'pi pi-fw pi-plus', to: '/menus'},
+					{label: 'Messages', icon: 'pi pi-fw pi-spinner',to: '/messages'},
+					{label: 'Charts', icon: 'pi pi-fw pi-chart-bar', to: '/charts'},
+					{label: 'Misc', icon: 'pi pi-fw pi-upload', to: '/misc'}
+                ]
+            },
+            {
+                label: 'Template Pages', icon: 'pi pi-fw pi-file',
+                items: [
+                    {label: 'Empty Page', icon: 'pi pi-fw pi-circle-off', to: '/empty'}
+                ]
+            },
+            {
+                label: 'Menu Hierarchy', icon: 'pi pi-fw pi-search',
+                items: [
+                    {
+                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {
+                                label: 'Submenu 1.1', icon: 'pi pi-fw pi-bookmark',
+                                items: [
+                                    {label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark'},
+                                ]
+                            },
+                            {
+                                label: 'Submenu 1.2', icon: 'pi pi-fw pi-bookmark',
+                                items: [
+                                    {label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark'}
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {
+                                label: 'Submenu 2.1', icon: 'pi pi-fw pi-bookmark',
+                                items: [
+                                    {label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 2.1.3', icon: 'pi pi-fw pi-bookmark'},
+                                ]
+                            },
+                            {
+                                label: 'Submenu 2.2', icon: 'pi pi-fw pi-bookmark',
+                                items: [
+                                    {label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark'},
+                                    {label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark'}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {window.location = "#/documentation"}},
+            {label: 'View Source', icon: 'pi pi-fw pi-search', command: () => {window.location = "https://github.com/primefaces/sigma"}}
+        ];
+    }
 
-  const layoutContainerClassName = classNames('layout-container', {
-    'menu-layout-static': toggle.layout !== 'overlay',
-    'menu-layout-overlay': toggle.layout === 'overlay',
-    'layout-menu-overlay-active': toggle.overlayMenuActive,
-    'menu-layout-slim': toggle.layout === 'slim',
-    'menu-layout-horizontal': toggle.layout === 'horizontal',
-    'layout-menu-static-inactive': toggle.staticMenuDesktopInactive,
-    'layout-menu-static-active': toggle.staticMenuMobileActive,
-  });
+    addClass(element, className) {
+        if (element.classList)
+            element.classList.add(className);
+        else
+            element.className += ' ' + className;
+    }
 
-  const menuClassName = classNames('layout-menu', { 'layout-menu-dark': toggle.darkMenu });
+    removeClass(element, className) {
+        if (element.classList)
+            element.classList.remove(className);
+        else
+            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
 
-  return (
-    <div className="layout-wrapper">
-      {toggle &&
-      <div className={layoutContainerClassName}>
-        <AppTopbar
-          profileMode={toggle.profile}
-          horizontal={isHorizontal()}
-          topbarMenuActive={toggle.topbarMenuActive}
-          activeTopbarItem={toggle.activeTopbarItem}
-          onMenuButtonClick={onMenuButtonClick}
-          onTopbarMenuButtonClick={onTopbarMenuButtonClick}
-          onTopbarItemClick={onTopbarItemClick}
-          onRightPanelButtonClick={onRightPanelButtonClick}
-          onClickAway={hideOverlay('topbarItem')}
-        />
-        <div className={menuClassName} onClick={onMenuClick}>
-          <ScrollPanel>
-            <div className="menu-scroll-content">
-              {toggle.profileMode === 'inline' && toggle.layout !== 'horizontal' && <AppInlineProfile />}
-              <AppMenu
-                model={menuState.menu}
-                onMenuItemClick={onMenuItemClick}
-                onRootMenuItemClick={onRootMenuItemClick}
-                layoutMode={toggle.layout}
-                active={toggle.menuActive}
-                onClickAway={hideOverlay('menu')}
-              />
+    isDesktop() {
+        return window.innerWidth > 1024;
+    }
+
+    componentDidUpdate() {
+        if (this.state.mobileMenuActive)
+            this.addClass(document.body, 'body-overflow-hidden');
+        else
+            this.removeClass(document.body, 'body-overflow-hidden');
+    }
+
+    render() {
+        let logo = this.state.layoutColorMode === 'dark' ? 'assets/layout/images/logo-white.svg': 'assets/layout/images/logo.svg';
+
+        let wrapperClass = classNames('layout-wrapper', {
+            'layout-overlay': this.state.layoutMode === 'overlay',
+            'layout-static': this.state.layoutMode === 'static',
+            'layout-static-sidebar-inactive': this.state.staticMenuInactive && this.state.layoutMode === 'static',
+            'layout-overlay-sidebar-active': this.state.overlayMenuActive && this.state.layoutMode === 'overlay',
+            'layout-mobile-sidebar-active': this.state.mobileMenuActive
+        });
+        let sidebarClassName = classNames("layout-sidebar", {'layout-sidebar-dark': this.state.layoutColorMode === 'dark'});
+
+        return (
+            <div className={wrapperClass} onClick={this.onWrapperClick}>
+                <AppTopbar onToggleMenu={this.onToggleMenu}/>
+
+                <div ref={(el) => this.sidebar = el} className={sidebarClassName} onClick={this.onSidebarClick}>
+
+                    <ScrollPanel ref={(el) => this.layoutMenuScroller = el} style={{height:'100%'}}>
+                        <div className="layout-sidebar-scroll-content" >
+                            <div className="layout-logo">
+                                <img alt="Logo" src={logo} />
+                            </div>
+                            <AppInlineProfile />
+                            <AppMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
+                        </div>
+                    </ScrollPanel>
+                </div>
+
+                <div className="layout-main">
+                    <Route path="/" exact component={Dashboard} />
+                    <Route path="/forms" component={FormsDemo} />
+                    <Route path="/sample" component={SampleDemo} />
+                    <Route path="/data" component={DataDemo} />
+                    <Route path="/panels" component={PanelsDemo} />
+                    <Route path="/overlays" component={OverlaysDemo} />
+                    <Route path="/menus" component={MenusDemo} />
+                    <Route path="/messages" component={MessagesDemo} />
+                    <Route path="/charts" component={ChartsDemo} />
+                    <Route path="/misc" component={MiscDemo} />
+                    <Route path="/empty" component={EmptyPage} />
+                    <Route path="/documentation" component={Documentation} />
+                </div>
+
+                <AppFooter />
+
+                <div className="layout-mask"></div>
             </div>
-          </ScrollPanel>
-        </div>
-
-        <div className="layout-main">
-          <AppBreadcrumb />
-          <div className="layout-content">
-            <SecureComponent {...componentProps} />
-            <AppFooter />
-          </div>
-        </div>
-
-        <AppRightPanel
-          expanded={toggle.rightPanelActive}
-          onContentClick={onRightPanelClick}
-          onClickAway={hideOverlay('rightPanel')}
-        />
-
-        <div className="layout-mask" />
-      </div>
-      }
-    </div>
-  );
-};
+        );
+    }
+}
 
 SecureLayout.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -208,7 +271,7 @@ SecureLayout.propTypes = {
   },
 };
 
-const ConnectedLayout = connect(({ menu }) => ({ menuState: menu }))(SecureLayout);
+const ConnectedLayout = connect()(SecureLayout);
 
 export const withSecureLayout = SecureComponent => props => (
   <ConnectedLayout {...props} SecureComponent={SecureComponent} />

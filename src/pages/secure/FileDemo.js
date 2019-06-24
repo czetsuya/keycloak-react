@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {FileUpload} from 'primereact/components/fileupload/FileUpload';
 import {Growl} from 'primereact/components/growl/Growl';
+import { withSecurity } from '../routing/SecureRoutes';
+import { withSecureLayout } from '../layout/SecureLayout';
 
-export class FileDemo extends Component {
+class FileDemo extends Component {
 
     constructor() {
         super();
@@ -41,3 +43,5 @@ export class FileDemo extends Component {
         )
     }
 }
+
+export default withSecurity(withSecureLayout(FileDemo));
