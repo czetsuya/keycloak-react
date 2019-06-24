@@ -20,7 +20,7 @@ import {MessagesDemo} from './components/MessagesDemo';
 import {ChartsDemo} from './components/ChartsDemo';
 import {MiscDemo} from './components/MiscDemo';
 import {EmptyPage} from './components/EmptyPage';
-import {Documentation} from "./components/Documentation";
+import Documentation from "./components/Documentation";
 import {ScrollPanel} from 'primereact/components/scrollpanel/ScrollPanel';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -35,7 +35,8 @@ import SecurityContext from './pages/routing/SecurityContext';
 import LandingPageSwitcher from './pages/routing/LandingPageSwitcher.js';
 import * as AuthorizationActions from './framework/redux/modules/Authorization';
 import ScrollToTop from './ScrollToTop'
-
+import { PrivateRoute } from "react-router-keycloak";
+import * as KeycloakActions from './framework/redux/modules/Keycloak'
 class App extends Component {
 
 	static propTypes = {
@@ -56,7 +57,7 @@ class App extends Component {
 	  render = () => {
 	    const { auth } = this.props.authorization;
 	    return (
-	      <SecurityContext.Provider value={{ ...auth, setAuth: this.setAuth }}>
+	      
 	        <I18nextProvider i18n={i18next}>
 	            <Switch>
 	              <Route exact path="/" component={LandingPageSwitcher} />
@@ -64,6 +65,7 @@ class App extends Component {
 	              {/* End Public Routes */}
 	              {/* Secure Routes */}
 	              <Route path="/dashboard" component={Dashboard} />
+	              <PrivateRoute path="/customers" component={Customer} onSuccess={this.props.userLoggedIn} />
 	              <Route path="/customers/:type/:id" component={Customer} />
 	              <Route path="/customers/:type" component={Customer} />
 	              <Route path="/customers" component={CustomerList} />
@@ -72,11 +74,18 @@ class App extends Component {
 	              <Route path="*" render={() => <Redirect to="/not-found" />} />
 	            </Switch>
 	        </I18nextProvider>
-	      </SecurityContext.Provider>
+	        
 	    );
 	  };
 	}
+	  
+	  const mapDispatchToProps = (dispatch) => ({
+		    userLoggedIn: (token) => dispatch(KeycloakActions.userLoggedIn(token)),
+		    userLoggedOut: () => dispatch(KeycloakActions.userLoggedOut())
+		  });
 
 	  export default connect(state => ({
 		  authorization: state.authorization,
-		}))(App);
+		  
+		}),
+		mapDispatchToProps)(App);

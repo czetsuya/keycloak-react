@@ -392,4 +392,4 @@ class Dashboard extends Component {
     }
 };
 
-export default withSecurity(withSecureLayout(Dashboard));
+export default withSecureLayout(Dashboard);

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './Documentation.css';
+import { withSecurity } from '../pages/routing/SecureRoutes';
+import { withSecureLayout } from '../pages/layout/SecureLayout';
 
-export class Documentation extends Component {
+class Documentation extends Component {
 
     constructor() {
         super();
@@ -328,3 +330,5 @@ $footerBgColor:#ffffff;
         )
     }
 }
+
+export default withSecureLayout(Documentation);
