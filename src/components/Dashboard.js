@@ -9,8 +9,10 @@ import {Chart} from 'primereact/chart';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {FullCalendar} from 'primereact/fullcalendar';
+import { withSecurity } from '../pages/routing/SecureRoutes';
+import { withSecureLayout } from '../pages/layout/SecureLayout';
 
-export class Dashboard extends Component {
+class Dashboard extends Component {
 
     constructor() {
         super();
@@ -388,4 +390,6 @@ export class Dashboard extends Component {
             </div>
         );
     }
-}
+};
+
+export default withSecurity(withSecureLayout(Dashboard));

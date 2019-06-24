@@ -84,8 +84,8 @@ class SecureLayout extends Component {
 
     createMenu() {
         this.menu = [
-        	{label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '#/'}},
-        	{label: 'Customers', icon: 'pi pi-fw pi-list', command: () => {window.location = '#/customers'}},
+        	{label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {window.location = '/'}},
+        	{label: 'Customers', icon: 'pi pi-fw pi-list', command: () => {window.location = '/customers'}},
             {
                 label: 'Menu Modes', icon: 'pi pi-fw pi-cog',
                 items: [
@@ -165,7 +165,7 @@ class SecureLayout extends Component {
                     }
                 ]
             },
-            {label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {window.location = "#/documentation"}},
+            {label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {window.location = "/documentation"}},
             {label: 'View Source', icon: 'pi pi-fw pi-search', command: () => {window.location = "https://github.com/primefaces/sigma"}}
         ];
     }

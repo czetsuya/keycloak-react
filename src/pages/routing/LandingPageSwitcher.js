@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import SecureContext from './SecurityContext';
-import Landing from '../public/Landing';
-import Dashboard from '../secure/Dashboard';
+import Dashboard from '../../components/Dashboard';
 
 export default () => {
   const context = useContext(SecureContext);
@@ -10,5 +9,5 @@ export default () => {
 	if (authenticated) {
     return <Dashboard />;
   }
-  return <Landing />;
+  return <Dashboard />;
 };
