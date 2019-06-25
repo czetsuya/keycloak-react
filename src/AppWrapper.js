@@ -6,20 +6,20 @@ import ApplicationStore from './framework/redux/ApplicationStore';
 import App from './App';
 
 class AppWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.persistor = persistStore(ApplicationStore);
-  }
+	constructor(props) {
+		super(props);
+		this.persistor = persistStore(ApplicationStore);
+	}
 
-  render() {
-    return (
-      <Provider store={ApplicationStore}>
-        <PersistGate loading={null} persistor={this.persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    );
-  }
+	render() {
+		return (
+			<Provider store={ApplicationStore}>
+				<PersistGate loading={null} persistor={this.persistor}>
+					<App />
+				</PersistGate>
+			</Provider>
+		);
+	}
 }
 
 export default AppWrapper;

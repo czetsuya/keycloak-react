@@ -7,12 +7,12 @@ import ScrollToTop from './ScrollToTop';
 import AppWrapper from './AppWrapper';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ScrollToTop>
-      <AppWrapper />
-    </ScrollToTop>
-  </BrowserRouter>
-  , document.getElementById('root'));
+	<BrowserRouter>
+		<ScrollToTop>
+			<AppWrapper />
+		</ScrollToTop>
+	</BrowserRouter>
+	, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

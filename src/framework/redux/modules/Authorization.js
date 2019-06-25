@@ -15,7 +15,7 @@ const TOKEN_REFRESH_RATE = 30;
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case Dispatch.successAction(INITIALIZE):
-    case Dispatch.successAction(UPDATE_TOKEN): {
+	  case Dispatch.successAction(UPDATE_TOKEN): {
       return {
         ...state,
         ...action.data,
