@@ -1,13 +1,10 @@
 {
-	"realm": "primereact-app",
-	"auth-server-url": "http://localhost:8081/auth",
-	"ssl-required": "none",
-	"resource": "primereact-client",
-	"credentials": {
-	  "secret": "f84b709c-1eab-4eb2-988a-ec4a005b8051"
-	},
-	"confidential-port": 0,
-	"disable-trust-manager": true,
-	"enable-basic-auth": "false",
-	"principal-attribute": "preferred_username"
-  }
+  "realm": "primereact-app",
+  "auth-server-url": "http://localhost:8081/auth",
+  "ssl-required": "external",
+  "resource": "primereact-client",
+  "credentials": {
+    "secret": "0c13ffa2-4499-4084-a275-c497653c9aa4"
+  },
+  "confidential-port": 0
+}
