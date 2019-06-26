@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 import SecurityContext from './SecurityContext';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { EmptyPage } from '../../components/EmptyPage'
 
 export const withSecurity = SecureComponent => props => {
@@ -35,9 +34,9 @@ export const withSecurity = SecureComponent => props => {
 			return <SecureComponent {...props} />;
 
 		} else {
-			return <Redirect to='/access' />;
+			return <Redirect to='/401' />;
 		}
 	}
 
-	return <EmptyPage></EmptyPage>;
+	return <Redirect to='/500' />;
 };
