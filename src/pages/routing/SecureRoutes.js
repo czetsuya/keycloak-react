@@ -5,9 +5,11 @@ import SecurityContext from './SecurityContext';
 import { EmptyPage } from '../../components/EmptyPage'
 
 export const withSecurity = SecureComponent => props => {
-	const { keycloak, authenticated, setAuth } = useContext(SecurityContext);
+	const { keycloak, setAuth } = useContext(SecurityContext);
 	const { token } = keycloak || {};
-	
+
+	const keycloakAuthenticated = keycloak ? keycloak.authenticated : false
+
 	useEffect(() => {
 		if (!token) {
 			let authenticate = new Promise((resolve, reject) => {
@@ -15,10 +17,10 @@ export const withSecurity = SecureComponent => props => {
 				keycloakInstance
 					.init({ onLoad: 'login-required' })
 					.success(authenticated => {
-						resolve({ keycloak: keycloakInstance, authenticated });
+						resolve({ keycloak: keycloakInstance, keycloakAuthenticated: authenticated });
 					})
 					.error(e => {
-						console.log(props)
+						console.log("Authentication failed: " + e)
 					});
 			});
 
@@ -30,13 +32,14 @@ export const withSecurity = SecureComponent => props => {
 	}, [token, setAuth]);
 
 	if (token) {
-		if (authenticated) {
+		if (keycloakAuthenticated) {
 			return <SecureComponent {...props} />;
 
 		} else {
-			return <Redirect to='/401' />;
+			return <Redirect to='/error-401' />;
 		}
 	}
 
-	return <Redirect to='/500' />;
+	return <Redirect to='/error-500' />;
+	// return <div>hello</div>
 };

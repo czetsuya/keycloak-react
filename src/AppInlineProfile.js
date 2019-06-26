@@ -6,8 +6,8 @@ import * as AuthorizationActions from './framework/redux/modules/Authorization';
 
 class AppInlineProfile extends Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			expanded: false
 		};
@@ -17,7 +17,7 @@ class AppInlineProfile extends Component {
 	logout = () => {
 		const { dispatch, history } = this.props;
 		history.push('/');
-		dispatch(AuthorizationActions.logout({ now: true }));
+		dispatch(AuthorizationActions.logout({ now: true, dispatch }));
 	};
 
 	onClick(event) {

@@ -8,6 +8,7 @@ const submitRequest = async (options) => {
 		const data = await request.data;
 		const code = await request.status;
 		return new Response({ data, code, status: SUCCESS });
+
 	} catch (error) {
 		return new Response({ status: FAIL }, new Error(error));
 	}
@@ -36,6 +37,7 @@ export default class ServiceConnector {
 		method = 'GET',
 		responseType = 'json',
 	}) => {
+
 		const headers = {
 			'Authorization': `Bearer ${this.token}`,
 		};
@@ -53,6 +55,8 @@ export default class ServiceConnector {
 		if (methodCall === 'PUT' || methodCall === 'POST' || methodCall === 'PATCH') {
 			options.data = data;
 		}
+
+		console.log(options)
 
 		return submitRequest(options);
 	};

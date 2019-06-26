@@ -4,11 +4,11 @@ import Dashboard from '../../components/Dashboard';
 import CustomerList from '../secure/Customers/CustomerList'
 
 export default () => {
-	const { authenticated } = useContext(SecureContext);
+	const { keycloak } = useContext(SecureContext);
 
-	if (authenticated) {
+	if (keycloak && keycloak.authenticated) {
 		return <CustomerList />;
 	}
-	
+
 	return <Dashboard />;
 };
