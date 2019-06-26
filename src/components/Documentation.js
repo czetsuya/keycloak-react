@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import './Documentation.css';
-import { withSecureLayout } from '../pages/layout/SecureLayout';
+import { withSecureLayout } from '../pages/layout/SecureLayout'; 
 
 class Documentation extends Component {
 
@@ -334,4 +335,4 @@ $footerBgColor:#ffffff;
   }
 }
 
-export default withSecureLayout(Documentation);
+export default connect()(withSecureLayout(Documentation));

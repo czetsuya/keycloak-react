@@ -1,11 +1,9 @@
 import React, { Component, Suspense } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
+import PropTypes from 'prop-types';
 import i18next from 'i18next';
-import Dashboard from './components/Dashboard';
-import Documentation from './components/Documentation';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -13,6 +11,9 @@ import 'primeflex/primeflex.css';
 import 'fullcalendar/dist/fullcalendar.css';
 import './layout/layout.css';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Documentation from './components/Documentation';
+import {EmptyPage} from './components/EmptyPage';
 import CustomerList from './pages/secure/Customers/CustomerList';
 import Customer from './pages/secure/Customers/Customer';
 import SecurityContext from './pages/routing/SecurityContext';
@@ -53,6 +54,7 @@ class App extends Component {
 							<Route path="/customers/:type" component={Customer} />
 							<Route path="/customers" component={CustomerList} />
 							<Route path="/documentation" component={Documentation} />
+							<Route path="/empty" component={EmptyPage} />
 							{/* End Secure Routes */}
 							<Route path="*" render={() => <Redirect to="/not-found" />} />
 						</Switch>

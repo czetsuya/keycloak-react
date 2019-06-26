@@ -4,8 +4,7 @@ import Dashboard from '../../components/Dashboard';
 import CustomerList from '../secure/Customers/CustomerList'
 
 export default () => {
-	const context = useContext(SecureContext);
-	const { authenticated } = context;
+	const { authenticated } = useContext(SecureContext);
 
 	if (authenticated) {
 		return <CustomerList />;

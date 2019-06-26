@@ -1,21 +1,21 @@
-import 'fullcalendar/dist/fullcalendar.css';
-import '../../ripple.js';
-import '../../App.css';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+import { withRouter } from 'react-router-dom'
 import { isValidElementType } from 'react-is';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { ScrollPanel } from 'primereact/components/scrollpanel/ScrollPanel';
 import { AppTopbar } from '../../AppTopbar';
 import { AppFooter } from '../../AppFooter';
 import { AppMenu } from '../../AppMenu';
 import AppInlineProfile from '../../AppInlineProfile';
+import 'fullcalendar/dist/fullcalendar.css';
+import '../../ripple.js';
+import '../../App.css';
 
 class SecureLayout extends Component {
-
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			layoutMode: 'static',
 			layoutColorMode: 'dark',
@@ -83,16 +83,21 @@ class SecureLayout extends Component {
 		}
 	}
 
+	navigateToMenu = (itemUrl: String) => {
+		this.props.history.push(itemUrl);
+	}
+
 	createMenu() {
 		this.menu = [
 			{
 				label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {
-					window.location = '/';
+					// window.location = '/';
+					this.navigateToMenu('/dashboard')
 				},
 			},
 			{
 				label: 'Customers', icon: 'pi pi-fw pi-list', command: () => {
-					window.location = '/customers';
+					this.navigateToMenu('/customers');
 				},
 			},
 			{
@@ -176,7 +181,7 @@ class SecureLayout extends Component {
 			},
 			{
 				label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {
-					window.location = '/documentation';
+					this.navigateToMenu('/documentation');
 				},
 			},
 			{
@@ -255,7 +260,6 @@ class SecureLayout extends Component {
 
 SecureLayout.propTypes = {
 	dispatch: PropTypes.func.isRequired,
-	menuState: PropTypes.shape({}).isRequired,
 	SecureComponent: (props, propName) => {
 		if (props[propName] && !isValidElementType(props[propName])) {
 			return new Error(
@@ -263,9 +267,12 @@ SecureLayout.propTypes = {
 			);
 		}
 	},
+	history: PropTypes.shape({
+		push: PropTypes.func.isRequired
+	}).isRequired
 };
 
-const ConnectedLayout = connect(({ menu }) => ({ menuState: menu }))(SecureLayout);
+const ConnectedLayout = connect()(withRouter(SecureLayout));
 
 export const withSecureLayout = SecureComponent => props => (
 	<ConnectedLayout {...props} SecureComponent={SecureComponent} />
