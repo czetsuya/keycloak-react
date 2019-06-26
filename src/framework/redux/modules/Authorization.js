@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import Dispatch from '../Dispatch';
-import SecureContext from '../../../pages/routing/SecurityContext';
+import SecurityContext from '../../../pages/routing/SecurityContext';
 
 const INITIALIZE = 'authorization/INITIALIZE';
 const LOGOUT = 'authorization/LOGOUT';
@@ -49,23 +49,30 @@ export function logoutNow({ now }) {
 	};
 }
 
-export const logout = (now = true, dispatch) => {
-	const { keycloak } = useContext(SecureContext)
-
-	if (true) {
-		if (keycloak && keycloak.authenticated) {
-			keycloak.logout()
+export const logout = (now = true, keycloak) => {
+	return function (dispatch) {
+		console.log("auth.logout")
+		if (!keycloak) {
+			return
 		}
-	} else {
-		setTimeout(() => {
-			keycloak.logout();
-		}, 5000);
+		if (true) {
+			if (keycloak && keycloak.authenticated) {
+				Dispatch.success(dispatch, LOGOUT);
+				keycloak.logout()
+			}
+		} else {
+			setTimeout(() => {
+				Dispatch.success(dispatch, LOGOUT);
+				keycloak.logout();
+			}, 5000);
+		}
 	}
 }
 
 const updateToken = token => dispatch => Dispatch.success(dispatch, UPDATE_TOKEN, { token });
 
 const scheduleTokenRefresh = (dispatch, auth) => {
+	console.log("auth.scheduleTokenRefresh")
 	const { keycloak } = auth || {};
 	setInterval(() => {
 		keycloak
@@ -85,6 +92,7 @@ const scheduleTokenRefresh = (dispatch, auth) => {
 
 export function initialize(auth) {
 	return (dispatch, getState) => {
+		console.log('auth.initialize')
 		scheduleTokenRefresh(dispatch, auth);
 		const { keycloak } = auth || {};
 		const { token, idTokenParsed: { preferred_username } } = keycloak || {};

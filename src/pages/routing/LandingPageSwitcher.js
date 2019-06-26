@@ -6,8 +6,11 @@ import CustomerList from '../secure/Customers/CustomerList'
 export default () => {
 	const { keycloak } = useContext(SecureContext);
 
+	console.log("landingPage")
+	console.log(keycloak)
+	
 	if (keycloak && keycloak.authenticated) {
-		return <CustomerList />;
+		return <CustomerList keycloak />;
 	}
 
 	return <Dashboard />;

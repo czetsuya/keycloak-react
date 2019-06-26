@@ -240,7 +240,7 @@ class SecureLayout extends Component {
 							<div className="layout-logo">
 								<img alt="Logo" src={logo} />
 							</div>
-							<AppInlineProfile />
+							<AppInlineProfile keycloak={this.props.keycloak} />
 							<AppMenu model={this.menu} onMenuItemClick={this.onMenuItemClick} />
 						</div>
 					</ScrollPanel>

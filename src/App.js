@@ -13,7 +13,6 @@ import './layout/layout.css';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Documentation from './components/Documentation';
-import { EmptyPage } from './components/EmptyPage';
 import CustomerList from './pages/secure/Customers/CustomerList';
 import Customer from './pages/secure/Customers/Customer';
 import SecurityContext from './pages/routing/SecurityContext';

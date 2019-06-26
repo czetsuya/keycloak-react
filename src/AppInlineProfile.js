@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as AuthorizationActions from './framework/redux/modules/Authorization';
+import SecurityContext from './pages/routing/SecurityContext';
 
 class AppInlineProfile extends Component {
 
@@ -15,9 +16,9 @@ class AppInlineProfile extends Component {
 	}
 
 	logout = () => {
-		const { dispatch, history } = this.props;
+		const { dispatch, history, keycloak } = this.props;
 		history.push('/');
-		dispatch(AuthorizationActions.logout({ now: true, dispatch }));
+		dispatch(AuthorizationActions.logout({ now: true, keycloak }));
 	};
 
 	onClick(event) {

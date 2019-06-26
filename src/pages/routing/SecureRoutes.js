@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 import SecurityContext from './SecurityContext';
-import { EmptyPage } from '../../components/EmptyPage'
 
 export const withSecurity = SecureComponent => props => {
 	const { keycloak, setAuth } = useContext(SecurityContext);
