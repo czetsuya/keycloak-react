@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
-import SecureContext from './SecurityContext';
+import SecurityContext from './SecurityContext';
 import Dashboard from '../../components/Dashboard';
 import CustomerList from '../secure/Customers/CustomerList'
 
 export default () => {
-	const { keycloak } = useContext(SecureContext);
+	const { authContext } = useContext(SecurityContext);
 
 	console.log("landingPage")
-	console.log(keycloak)
+	console.log(authContext)
 	
-	if (keycloak && keycloak.authenticated) {
-		return <CustomerList keycloak />;
-	}
+	// if (keycloak && keycloak.authenticated) {
+	// 	return <CustomerList keycloak />;
+	// }
 
 	return <Dashboard />;
 };

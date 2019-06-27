@@ -6,8 +6,8 @@ export default class BaseService {
 	constructor() {
 		this.serviceConnector = () => {
 			const state = ApplicationStore.getState();
-			const { authorization } = state;
-			return new ServiceConnector(properties.API_URL || '', authorization.token);
+			const { authContext } = state;
+			return new ServiceConnector(properties.API_URL || '', authContext.token);
 		};
 	}
 }

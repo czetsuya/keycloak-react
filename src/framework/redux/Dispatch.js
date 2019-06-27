@@ -34,10 +34,10 @@ export default class Dispatch {
 		}
 	}
 
-	static success(dispatch, type, data) {
+	static success(dispatch, type, payload) {
 		dispatch({
 			type: Dispatch.successAction(type),
-			data,
+			payload,
 		});
 	}
 

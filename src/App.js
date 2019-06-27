@@ -18,58 +18,55 @@ import Customer from './pages/secure/Customers/Customer';
 import SecurityContext from './pages/routing/SecurityContext';
 import LandingPageSwitcher from './pages/routing/LandingPageSwitcher.js';
 import * as AuthorizationActions from './framework/redux/modules/Authorization';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import NotFound from './components/NotFound'
 import Error401 from './components/Error401'
 import Error500 from './components/Error500'
 
 class App extends Component {
-
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
-		authorization: PropTypes.shape({
-			auth: PropTypes.object,
+		authContext: PropTypes.shape({
+			keycloak: PropTypes.object,
 			token: PropTypes.string,
 			user: PropTypes.shape({
 				username: PropTypes.string,
-			}),
+			})
 		}).isRequired,
 	};
 
-	setAuth = auth => {
-		this.props.dispatch(AuthorizationActions.initialize(auth));
+	setAuthContext = authContext => {
+		this.props.dispatch(AuthorizationActions.initialize(authContext));
 	};
 
 	render = () => {
-		const { auth } = this.props.authorization;
+		console.log("app.props=" + JSON.stringify(this.props))
+		const { authContext } = this.props;
 		return (
-			<SecurityContext.Provider value={{ ...auth, setAuth: this.setAuth }}>
-				<Suspense fallback={<ProgressSpinner />}>
-					<I18nextProvider i18n={i18next}>
-						<Switch>
-							<Route exact path="/" component={LandingPageSwitcher} />
-							{/* Public Routes */}
-							<Route path="/error-401" component={Error401} />
-							<Route path="/error-500" component={Error500} />
-							<Route path="/dashboard" component={Dashboard} />
-							<Route path="/documentation" component={Documentation} />
-							{/* End Public Routes */}
-							{/* Secure Routes */}
-							<Route path="/customers/:type/:id" component={Customer} />
-							<Route path="/customers/:type" component={Customer} />
-							<Route path="/customers" component={CustomerList} />
-							{/* End Secure Routes */}
+			<SecurityContext.Provider value={{ authContext: authContext, setAuthContext: this.setAuthContext }}>
+				<I18nextProvider i18n={i18next}>
+					<Switch>
+						<Route exact path="/" component={LandingPageSwitcher} />
+						{/* Public Routes */}
+						<Route path="/error-401" component={Error401} />
+						<Route path="/error-500" component={Error500} />
+						<Route path="/dashboard" component={Dashboard} />
+						<Route path="/documentation" component={Documentation} />
+						{/* End Public Routes */}
+						{/* Secure Routes */}
+						<Route path="/customers/:type/:id" component={Customer} />
+						<Route path="/customers/:type" component={Customer} />
+						<Route path="/customers" component={CustomerList} />
+						{/* End Secure Routes */}
 
-							<Route path="/not-found" component={NotFound} />
-							<Route path="*" render={() => <Redirect to="/not-found" />} />
-						</Switch>
-					</I18nextProvider>
-				</Suspense>
+						<Route path="/not-found" component={NotFound} />
+						<Route path="*" render={() => <Redirect to="/not-found" />} />
+					</Switch>
+				</I18nextProvider>
 			</SecurityContext.Provider>
 		);
 	};
 }
 
 export default connect(state => ({
-	authorization: state.authorization,
+	authContext: state.authContext,
 }))(App);

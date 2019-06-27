@@ -21,9 +21,9 @@ if (isProductionMode) {
 
 const persistedReducers = persistCombineReducers(
 	{
-		key: 'ultima-react',
+		key: 'keycloak-react',
 		storage: localForage,
-		whitelist: ['authorization']
+		blacklist: ['authContext']
 	},
 	reducers
 );
