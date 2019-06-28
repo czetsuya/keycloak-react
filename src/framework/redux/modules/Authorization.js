@@ -1,6 +1,8 @@
-import { useContext } from 'react'
+/**
+ * @author Edward P. Legaspi
+ * @version 0.0.1
+ */
 import Dispatch from '../Dispatch';
-import SecurityContext from '../../../pages/routing/SecurityContext';
 
 const INITIALIZE = 'authorization/INITIALIZE';
 const LOGOUT = 'authorization/LOGOUT';
@@ -68,41 +70,29 @@ const scheduleTokenRefresh = (dispatch, authContext) => {
 	}, TOKEN_REFRESH_RATE * 1000);
 };
 
-export const logout = (now = true, keycloak) => {
-	return function (dispatch) {
-		console.log("auth.logout")
+export const logout = (now = true) => {
+	return function (dispatch, getState) {
+		const { authContext } = getState() || {}
+		const { keycloak } = authContext || {}
+
+		console.log("auth.logout " + JSON.stringify(authContext))
+
 		if (!keycloak) {
 			return
 		}
-		if (true) {
+
+		console.log("auth.logout.ok " + JSON.stringify(keycloak))
+
+		if (now) {
 			if (keycloak && keycloak.authenticated) {
 				Dispatch.success(dispatch, LOGOUT);
-				keycloak.logout()
+				keycloak.logout({ redirectUri: keycloak.createLogoutUrl() })
 			}
 		} else {
 			setTimeout(() => {
 				Dispatch.success(dispatch, LOGOUT);
-				keycloak.logout();
+				keycloak.logout({ redirectUri: keycloak.createLogoutUrl() })
 			}, 5000);
 		}
 	}
 }
-
-export function logoutNow({ now }) {
-	return (dispatch, getState) => {
-		const { authContext } = getState();
-		const { auth: { keycloak } } = authContext || {};
-		if (now) {
-			Dispatch.success(dispatch, LOGOUT);
-			keycloak.logout();
-		} else {
-			setTimeout(() => {
-				Dispatch.success(dispatch, LOGOUT);
-				keycloak.logout();
-			}, 5000);
-		}
-	};
-}
-
-
-

@@ -41,30 +41,30 @@ export default class Dispatch {
 		});
 	}
 
-	static error(dispatch, type, data) {
+	static error(dispatch, type, payload) {
 		/* eslint-disable no-console */
 		console.error('Error encountered on action: ', type);
-		console.error('ERROR: ', data);
+		console.error('ERROR: ', payload);
 		console.trace();
 		/* eslint-enable */
 		dispatch({
 			type: Dispatch.errorAction(type),
 			data: {
-				error: new Error(data),
+				error: new Error(payload),
 			},
 		});
 	}
 
-	static fatal(dispatch, type, data) {
+	static fatal(dispatch, type, payload) {
 		/* eslint-disable no-console */
 		console.error('Fatal error encountered on action: ', type);
-		console.error('FATAL: ', data);
+		console.error('FATAL: ', payload);
 		console.trace();
 		/* eslint-enable */
 		dispatch({
 			type: Dispatch.fatalAction(type),
 			data: {
-				error: new Error(data),
+				error: new Error(payload),
 			},
 		});
 	}

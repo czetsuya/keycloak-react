@@ -2,12 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 import SecurityContext from './SecurityContext';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 export const withSecurity = SecureComponent => props => {
 	const { authContext, setAuthContext } = useContext(SecurityContext);
 	const { keycloak, token } = authContext || {}
 
-	console.log('landingPage')
+	console.log('withSecurity')
 	console.log(keycloak)
 
 	const keycloakAuthenticated = keycloak ? keycloak.authenticated : false
@@ -51,5 +52,5 @@ export const withSecurity = SecureComponent => props => {
 	}
 
 	// return <Redirect to='/error-500' />;
-	return <div>hello</div>
+	return <ProgressSpinner></ProgressSpinner>
 };

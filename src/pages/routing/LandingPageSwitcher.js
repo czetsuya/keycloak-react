@@ -4,14 +4,13 @@ import Dashboard from '../../components/Dashboard';
 import CustomerList from '../secure/Customers/CustomerList'
 
 export default () => {
-	const { authContext } = useContext(SecurityContext);
+	const { authContext } = useContext(SecurityContext) || {}
+	const { keycloak } = authContext || {}
+	console.log("landingPage " + JSON.stringify(authContext))
 
-	console.log("landingPage")
-	console.log(authContext)
-	
-	// if (keycloak && keycloak.authenticated) {
-	// 	return <CustomerList keycloak />;
-	// }
+	if (keycloak && keycloak.authenticated) {
+		return <CustomerList />;
+	}
 
 	return <Dashboard />;
 };
