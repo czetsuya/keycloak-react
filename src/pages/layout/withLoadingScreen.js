@@ -7,10 +7,10 @@ const LoadingScreen = ({ WrappedComponent, page, ...componentProps }) => {
 	const { isLoading } = page || {};
 
 	return (
-		<div>
+		<>
 			<div class="busy-loader" style={{ display: isLoading ? "block" : "none" }}><ProgressSpinner /></div>
 			<WrappedComponent {...componentProps} />
-		</div>
+		</>
 	);
 };
 
