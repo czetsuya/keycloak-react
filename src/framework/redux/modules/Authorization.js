@@ -17,8 +17,6 @@ const initialState = {
 const TOKEN_REFRESH_RATE = 30;
 
 export default function reducer(state = initialState, action) {
-	console.log('auth.action.type' + action.type)
-	console.log(action)
 	switch (action.type) {
 		case Dispatch.successAction(INITIALIZE):
 		case Dispatch.successAction(UPDATE_TOKEN): {
@@ -39,9 +37,7 @@ export default function reducer(state = initialState, action) {
 
 export function initialize(authContext) {
 	return (dispatch, getState) => {
-		console.log('auth.initialize')
 		scheduleTokenRefresh(dispatch, authContext);
-		console.log("initialize.auth.kc " + JSON.stringify(authContext))
 		const { keycloak } = authContext || {}
 		const { token, idTokenParsed: { preferred_username } } = keycloak || {};
 
@@ -52,7 +48,6 @@ export function initialize(authContext) {
 const updateToken = token => dispatch => Dispatch.success(dispatch, UPDATE_TOKEN, { token });
 
 const scheduleTokenRefresh = (dispatch, authContext) => {
-	console.log("auth.scheduleTokenRefresh")
 	const { keycloak } = authContext || {};
 	setInterval(() => {
 		keycloak
@@ -75,13 +70,9 @@ export const logout = (now = true) => {
 		const { authContext } = getState() || {}
 		const { keycloak } = authContext || {}
 
-		console.log("auth.logout " + JSON.stringify(authContext))
-
 		if (!keycloak) {
 			return
 		}
-
-		console.log("auth.logout.ok " + JSON.stringify(keycloak))
 
 		if (now) {
 			if (keycloak && keycloak.authenticated) {

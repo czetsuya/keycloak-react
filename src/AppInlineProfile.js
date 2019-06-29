@@ -29,7 +29,7 @@ class AppInlineProfile extends Component {
 		return (
 			<div className="profile">
 				<div>
-					<img src="assets/layout/images/profile.png" alt="" />
+					<img src="/assets/layout/images/profile.png" alt="" />
 				</div>
 				<button className="p-link profile-link" onClick={this.onClick}>
 					<span className="username">Claire Williams</span>

@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Formik, Field } from 'formik';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -13,10 +12,11 @@ const styles = {
 	cancelButton: { marginRight: '.25em' },
 };
 
-const Customer = ({ dispatch, customer, history, match: { params: { type, id = null } } }) => {
+const Customer = ({ dispatch, customer, history, navigation, match: { params: { type, entityId = null } } }) => {
+	
 	useEffect(() => {
-		dispatch(CustomerActions.retrieve({ id }));
-	}, [dispatch, id, type]);
+		dispatch(CustomerActions.retrieve({ entityId }));
+	}, [dispatch, entityId, type]);
 
 	const close = () => {
 		dispatch(CustomerActions.retrieve());
@@ -25,12 +25,11 @@ const Customer = ({ dispatch, customer, history, match: { params: { type, id = n
 
 	const save = (customer) => {
 		if (type === 'edit') {
-			dispatch(CustomerActions.update(customer));
+			dispatch(CustomerActions.update(customer, close));
 		}
 		if (type === 'new') {
 			dispatch(CustomerActions.create(customer));
 		}
-		close();
 	};
 
 	return (
@@ -44,7 +43,7 @@ const Customer = ({ dispatch, customer, history, match: { params: { type, id = n
 						onSubmit={save}
 						render={({ handleReset, handleSubmit }) => (
 							<Fragment>
-								<h1>{`Customer${!!id ? ` - ${id}` : ' - New'}`}</h1>
+								<h1>{`Customer${!!entityId ? ` - ${entityId}` : ' - New'}`}</h1>
 								<div className="p-grid">
 									<div className="p-col-12 p-md-1">
 										<label htmlFor="name">Name</label>
@@ -80,14 +79,14 @@ const Customer = ({ dispatch, customer, history, match: { params: { type, id = n
 										/>
 									</div>
 								</div>
-								<Button
+								<Button type="submit"
 									onClick={handleReset}
 									label={type === 'view' ? 'Close' : 'Cancel'}
 									className="p-button-danger"
 									style={styles.cancelButton}
 								/>
 								{type !== 'view' &&
-									<Button onClick={handleSubmit} label="Save" className="p-button-success" />
+									<Button type="submit" onClick={handleSubmit} label="Save" className="p-button-success" />
 								}
 							</Fragment>
 						)}
@@ -100,7 +99,7 @@ const Customer = ({ dispatch, customer, history, match: { params: { type, id = n
 
 Customer.propTypes = {
 	customer: PropTypes.shape({
-		id: PropTypes.number,
+		entityId: PropTypes.number,
 		name: PropTypes.string,
 		age: PropTypes.number,
 		email: PropTypes.string,
@@ -123,4 +122,5 @@ Customer.defaultProps = {
 
 export default connect(state => ({
 	customer: state.customers.selected,
-}))(withSecurity(withSecureLayout(withRouter(Customer))));
+	page: state.page
+}))(withSecurity(withSecureLayout(Customer)));

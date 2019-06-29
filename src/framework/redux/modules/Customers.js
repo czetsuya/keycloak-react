@@ -1,6 +1,7 @@
 import Dispatch from '../Dispatch';
 import CustomerService from '../../../api-services/ff-api/Customers';
 import { SUCCESS } from '../../../models/Response';
+import * as PageActions from './Page'
 
 const LIST = 'customers/LIST';
 const CREATE = 'menu/CREATE';
@@ -17,10 +18,15 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		case Dispatch.loadingAction(LIST): {
+			return {
+				...state
+			};
+		}
 		case Dispatch.successAction(LIST): {
 			return {
 				...state,
-				list: [...action.payload._embedded.customers],
+				list: [...action.payload._embedded.customers]
 			};
 		}
 		case Dispatch.successAction(RETRIEVE): {
@@ -50,22 +56,29 @@ export const create = customer => dispatch => {
 		});
 };
 
-export const retrieve = customer => dispatch => {
+export const retrieve = entity => dispatch => {
 	Dispatch.loading(dispatch, RETRIEVE);
-	if (!!customer && !!customer.id) {
-		CustomerService.retrieve(customer)
+	if (!!entity && !!entity.entityId) {
+		CustomerService.retrieve(entity.entityId)
 			.then(result => {
 				Dispatch.done(dispatch, RETRIEVE, result);
 			});
+
 	} else {
 		Dispatch.done(dispatch, RETRIEVE, { status: SUCCESS, result: {} });
 	}
 };
 
-export const update = customer => dispatch => {
+export const update = (customer, nextFunc) => dispatch => {
 	Dispatch.loading(dispatch, UPDATE);
+	PageActions.startLoading(dispatch)
 	CustomerService.update(customer)
 		.then(result => {
 			Dispatch.done(dispatch, UPDATE, result);
+			if (nextFunc) {
+				nextFunc();
+				//Dispatch.done(dispatch, PageActions.PAGE_LOADING, { status: SUCCESS, result: {} });
+				PageActions.stopLoading(dispatch);
+			}
 		});
 };

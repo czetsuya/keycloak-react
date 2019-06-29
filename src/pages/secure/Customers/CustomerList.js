@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -20,11 +19,11 @@ const CustomerList = ({ dispatch, customers, history }) => {
 	}, [dispatch]);
 
 	const viewCustomer = customer => () => {
-		history.push(`/customers/view/${customer.id}`);
+		history.push(`/customers/view/${customer.entityId}`);
 	};
 
 	const editCustomer = customer => () => {
-		history.push(`/customers/edit/${customer.id}`);
+		history.push(`/customers/edit/${customer.entityId}`);
 	};
 
 	const newCustomer = () => {
@@ -67,4 +66,5 @@ const CustomerList = ({ dispatch, customers, history }) => {
 
 export default connect(state => ({
 	customers: state.customers,
-}))(withSecurity(withSecureLayout(withRouter(CustomerList))));
+	page: state.page
+}))(withSecurity(withSecureLayout(CustomerList)));

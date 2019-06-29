@@ -56,8 +56,6 @@ export default class ServiceConnector {
 			options.data = data;
 		}
 
-		console.log(options)
-
 		return submitRequest(options);
 	};
 }

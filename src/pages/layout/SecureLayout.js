@@ -12,6 +12,7 @@ import AppInlineProfile from '../../AppInlineProfile';
 import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
 import '../../App.css';
+import { withLoadingScreen } from './withLoadingScreen'
 
 class SecureLayout extends Component {
 	constructor(props) {
@@ -218,7 +219,7 @@ class SecureLayout extends Component {
 	}
 
 	render() {
-		let logo = this.state.layoutColorMode === 'dark' ? 'assets/layout/images/logo-white.svg' : 'assets/layout/images/logo.svg';
+		let logo = this.state.layoutColorMode === 'dark' ? '/assets/layout/images/logo-white.svg' : '/assets/layout/images/logo.svg';
 
 		let wrapperClass = classNames('layout-wrapper', {
 			'layout-overlay': this.state.layoutMode === 'overlay',
@@ -272,7 +273,7 @@ SecureLayout.propTypes = {
 	}).isRequired
 };
 
-const ConnectedLayout = connect()(withRouter(SecureLayout));
+const ConnectedLayout = connect()(withRouter(withLoadingScreen(SecureLayout)));
 
 export const withSecureLayout = SecureComponent => props => (
 	<ConnectedLayout {...props} SecureComponent={SecureComponent} />

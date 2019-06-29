@@ -40,7 +40,6 @@ class App extends Component {
 	};
 
 	render = () => {
-		console.log("app.props=" + JSON.stringify(this.props))
 		const { authContext } = this.props;
 		return (
 			<SecurityContext.Provider value={{ authContext: authContext, setAuthContext: this.setAuthContext }}>
@@ -55,7 +54,7 @@ class App extends Component {
 							<Route path="/documentation" component={Documentation} />
 							{/* End Public Routes */}
 							{/* Secure Routes */}
-							<Route path="/customers/:type/:id" component={Customer} />
+							<Route path="/customers/:type/:entityId" component={Customer} />
 							<Route path="/customers/:type" component={Customer} />
 							<Route path="/customers" component={CustomerList} />
 							{/* End Secure Routes */}
