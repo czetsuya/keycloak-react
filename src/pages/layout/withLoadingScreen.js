@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const LoadingScreen = ({ WrappedComponent, page, ...componentProps }) => {
 
 	const { isLoading } = page || {};
 
-	if (isLoading) {
-		return <div>Hello</div>;
-	}
-
-	return <WrappedComponent {...componentProps} />;
+	return (
+		<div>
+			<div class="busy-loader" style={{ display: isLoading ? "block" : "none" }}><ProgressSpinner /></div>
+			<WrappedComponent {...componentProps} />
+		</div>
+	);
 };
 
 const ConnectedLayout = connect()(LoadingScreen);
