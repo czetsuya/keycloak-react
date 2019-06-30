@@ -8,8 +8,8 @@ import { withSecureLayout } from '../../layout/SecureLayout';
 import * as CustomerActions from '../../../framework/redux/modules/Customers';
 
 const styles = {
-	actionsColumn: { textAlign: 'center', width: '8em' },
-	viewButton: { marginRight: '.5em' },
+	actionsColumn: { textAlign: 'center', width: '10em' },
+	viewButton: { marginRight: '.3em' },
 };
 
 const CustomerList = ({ dispatch, customers, history }) => {
@@ -26,6 +26,10 @@ const CustomerList = ({ dispatch, customers, history }) => {
 		history.push(`/customers/edit/${customer.entityId}`);
 	};
 
+	const deleteCustomer = customerId => () => {
+		dispatch(CustomerActions.remove(customerId))
+	}
+
 	const newCustomer = () => {
 		history.push('/customers/new');
 	};
@@ -33,8 +37,9 @@ const CustomerList = ({ dispatch, customers, history }) => {
 	const actionButtons = (rowData) => {
 		return (
 			<div>
-				<Button type="button" icon="pi pi-search" style={styles.viewButton} onClick={viewCustomer(rowData)} />
-				<Button type="button" icon="pi pi-pencil" onClick={editCustomer(rowData)} />
+				<Button type="button" tooltip="View" icon="pi pi-search" style={styles.viewButton} onClick={viewCustomer(rowData)} />
+				<Button type="button" tooltip="Edit" icon="pi pi-pencil" style={styles.viewButton} onClick={editCustomer(rowData)} />
+				<Button type="button" tooltip="Delete" icon="pi pi-trash" onClick={deleteCustomer(rowData.entityId)} />
 			</div>
 		);
 	};
@@ -51,8 +56,9 @@ const CustomerList = ({ dispatch, customers, history }) => {
 						paginatorPosition="both"
 						paginator
 						responsive
+						autoLayout
 					>
-						<Column field="id" header="ID" sortable={true} />
+						<Column field="entityId" header="ID" sortable={true} />
 						<Column field="name" header="Name" sortable={true} />
 						<Column field="age" header="Age" sortable={true} />
 						<Column field="email" header="Email" sortable={true} />

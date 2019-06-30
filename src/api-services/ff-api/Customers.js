@@ -26,9 +26,9 @@ class Customers extends BaseService {
 		});
 	}
 
-	remove(customer) {
+	remove(customerId) {
 		return this.serviceConnector().invokeRequest({
-			url: `/customers/${customer.entityId}`,
+			url: `/customers/${customerId}`,
 			method: 'DELETE',
 		});
 	}

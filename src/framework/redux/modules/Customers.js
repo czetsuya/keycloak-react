@@ -4,12 +4,10 @@ import { SUCCESS } from '../../../models/Response';
 import * as PageActions from './Page'
 
 const LIST = 'customers/LIST';
-const CREATE = 'menu/CREATE';
+const CREATE = 'customers/CREATE';
 const RETRIEVE = 'customers/RETRIEVE';
-const UPDATE = 'menu/UPDATE';
-/*
-const DELETE = 'menu/DELETE';
-*/
+const UPDATE = 'customers/UPDATE';
+const DELETE = 'customers/DELETE';
 
 const initialState = {
 	selected: {},
@@ -35,6 +33,12 @@ export default function reducer(state = initialState, action) {
 				selected: { ...action.payload },
 			};
 		}
+		case Dispatch.successAction(DELETE): {
+			return {
+				...state,
+				list: [...state.list.filter((e, index, arr) => { return e.entityId !== action.payload.entityId })]
+			};
+		}
 		default:
 			return state;
 	}
@@ -48,11 +52,14 @@ export const list = () => dispatch => {
 		});
 };
 
-export const create = customer => dispatch => {
+export const create = (customer, nextFunc) => dispatch => {
 	Dispatch.loading(dispatch, CREATE);
 	CustomerService.create(customer)
 		.then(result => {
 			Dispatch.done(dispatch, CREATE, result);
+			if (nextFunc) {
+				nextFunc();
+			}
 		});
 };
 
@@ -80,5 +87,13 @@ export const update = (customer, nextFunc) => dispatch => {
 				//Dispatch.done(dispatch, PageActions.PAGE_LOADING, { status: SUCCESS, result: {} });
 				PageActions.stopLoading(dispatch);
 			}
+		});
+};
+
+export const remove = customerId => dispatch => {
+	Dispatch.loading(dispatch, DELETE);
+	CustomerService.remove(customerId)
+		.then(result => {
+			Dispatch.done(dispatch, DELETE, { status: SUCCESS, result: { entityId: customerId } });
 		});
 };

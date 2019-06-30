@@ -28,7 +28,7 @@ const Customer = ({ dispatch, customer, history, navigation, match: { params: { 
 			dispatch(CustomerActions.update(customer, close));
 		}
 		if (type === 'new') {
-			dispatch(CustomerActions.create(customer));
+			dispatch(CustomerActions.create(customer, close));
 		}
 	};
 
