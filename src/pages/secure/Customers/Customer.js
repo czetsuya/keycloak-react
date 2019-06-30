@@ -52,7 +52,7 @@ const Customer = ({ dispatch, customer, history, navigation, match: { params: { 
 										<Field
 											name="name"
 											render={({ field }) => (
-												<InputText {...field} id="name" disabled={type === 'view'} />
+												<InputText {...field} id="name" disabled={type === 'view'} value={field.value || ''} />
 											)}
 										/>
 									</div>
@@ -63,7 +63,7 @@ const Customer = ({ dispatch, customer, history, navigation, match: { params: { 
 										<Field
 											name="age"
 											render={({ field }) => (
-												<InputText {...field} id="age" type="number" min={1} disabled={type === 'view'} />
+												<InputText {...field} id="age" type="number" min={1} disabled={type === 'view'} value={field.value || 16} />
 											)}
 										/>
 									</div>
@@ -74,7 +74,7 @@ const Customer = ({ dispatch, customer, history, navigation, match: { params: { 
 										<Field
 											name="email"
 											render={({ field }) => (
-												<InputText {...field} id="email" type="email" min={1} disabled={type === 'view'} />
+												<InputText {...field} id="email" type="email" min={1} disabled={type === 'view'} value={field.value || ''} />
 											)}
 										/>
 									</div>

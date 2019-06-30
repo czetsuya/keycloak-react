@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 import SecurityContext from './SecurityContext';
-import { ProgressSpinner } from 'primereact/progressspinner';
+import BusyLoader from '../../framework/component/BusyLoader'
 
 export const withSecurity = SecureComponent => props => {
 	const { authContext, setAuthContext } = useContext(SecurityContext);
@@ -42,5 +42,5 @@ export const withSecurity = SecureComponent => props => {
 	}
 
 	// return <Redirect to='/error-500' />;
-	return <ProgressSpinner></ProgressSpinner>
+	return <BusyLoader isLoading={true}></BusyLoader>;
 };

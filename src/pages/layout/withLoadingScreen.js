@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ProgressSpinner } from 'primereact/progressspinner';
+import BusyLoader from '../../framework/component/BusyLoader'
 
 const LoadingScreen = ({ WrappedComponent, page, ...componentProps }) => {
 
@@ -8,7 +8,7 @@ const LoadingScreen = ({ WrappedComponent, page, ...componentProps }) => {
 
 	return (
 		<>
-			<div class="busy-loader" style={{ display: isLoading ? "block" : "none" }}><ProgressSpinner /></div>
+			<BusyLoader isLoading={isLoading}></BusyLoader>
 			<WrappedComponent {...componentProps} />
 		</>
 	);
