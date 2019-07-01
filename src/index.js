@@ -7,7 +7,7 @@ import ScrollToTop from './ScrollToTop';
 import AppWrapper from './AppWrapper';
 
 ReactDOM.render(
-	<BrowserRouter>
+	<BrowserRouter basename={process.env.PUBLIC_URL}>
 		<ScrollToTop>
 			<AppWrapper />
 		</ScrollToTop>

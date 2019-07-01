@@ -22,6 +22,7 @@ import NotFound from './components/NotFound'
 import Error401 from './components/Error401'
 import Error500 from './components/Error500'
 import { ProgressSpinner } from 'primereact/progressspinner';
+import Locations from './Locations'
 
 class App extends Component {
 	static propTypes = {
@@ -46,7 +47,8 @@ class App extends Component {
 				<Suspense fallback={<ProgressSpinner />}>
 					<I18nextProvider i18n={i18next}>
 						<Switch>
-							<Route exact path="/" component={LandingPageSwitcher} />
+							{Locations.Home.toRoute({ component: LandingPageSwitcher, invalid: NotFound }, true)}
+							{/* <Route exact path="/" component={LandingPageSwitcher} /> */}
 							{/* Public Routes */}
 							<Route path="/error-401" component={Error401} />
 							<Route path="/error-500" component={Error500} />
@@ -54,9 +56,12 @@ class App extends Component {
 							<Route path="/documentation" component={Documentation} />
 							{/* End Public Routes */}
 							{/* Secure Routes */}
-							<Route path="/customers/:type/:entityId" component={Customer} />
-							<Route path="/customers/:type" component={Customer} />
-							<Route path="/customers" component={CustomerList} />
+							{/* <Route path="/customers/:type/:entityId" component={Customer} /> */}
+							{/* <Route path="/customers/:type" component={Customer} /> */}
+							{/* <Route path="/customers" component={CustomerList} /> */}
+							{Locations.CustomerEdit.toRoute({ component: Customer, invalid: NotFound }, true)}
+							{Locations.CustomerNew.toRoute({ component: Customer, invalid: NotFound }, true)}
+							{Locations.CustomerList.toRoute({ component: CustomerList, invalid: NotFound }, true)}
 							{/* End Secure Routes */}
 
 							<Route path="/not-found" component={NotFound} />
