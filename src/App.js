@@ -48,17 +48,13 @@ class App extends Component {
 					<I18nextProvider i18n={i18next}>
 						<Switch>
 							{Locations.Home.toRoute({ component: LandingPageSwitcher, invalid: NotFound }, true)}
-							{/* <Route exact path="/" component={LandingPageSwitcher} /> */}
 							{/* Public Routes */}
 							<Route path="/error-401" component={Error401} />
 							<Route path="/error-500" component={Error500} />
-							<Route path="/dashboard" component={Dashboard} />
-							<Route path="/documentation" component={Documentation} />
+							{Locations.Dashboard.toRoute({ component: Dashboard, invalid: NotFound }, true)}
+							{Locations.Document.toRoute({ component: Documentation, invalid: NotFound }, true)}
 							{/* End Public Routes */}
 							{/* Secure Routes */}
-							{/* <Route path="/customers/:type/:entityId" component={Customer} /> */}
-							{/* <Route path="/customers/:type" component={Customer} /> */}
-							{/* <Route path="/customers" component={CustomerList} /> */}
 							{Locations.CustomerEdit.toRoute({ component: Customer, invalid: NotFound }, true)}
 							{Locations.CustomerNew.toRoute({ component: Customer, invalid: NotFound }, true)}
 							{Locations.CustomerList.toRoute({ component: CustomerList, invalid: NotFound }, true)}

@@ -6,6 +6,7 @@ import { Column } from 'primereact/column';
 import { withSecurity } from '../../routing/SecureRoutes';
 import { withSecureLayout } from '../../layout/SecureLayout';
 import * as CustomerActions from '../../../framework/redux/modules/Customers';
+import Locations from '../../../Locations'
 
 const styles = {
 	actionsColumn: { textAlign: 'center', width: '10em' },
@@ -18,27 +19,27 @@ const CustomerList = ({ dispatch, customers, history }) => {
 		dispatch(CustomerActions.list());
 	}, [dispatch]);
 
-	const viewCustomer = customer => () => {
-		history.push(`/customers/view/${customer.entityId}`);
+	const viewCustomer = entityId => () => {
+		history.push(Locations.CustomerEdit.toUrl({ type: 'view', entityId: entityId }));
 	};
 
-	const editCustomer = customer => () => {
-		history.push(`/customers/edit/${customer.entityId}`);
+	const editCustomer = entityId => () => {
+		history.push(Locations.CustomerEdit.toUrl({ type: 'edit', entityId: entityId }));
 	};
 
-	const deleteCustomer = customerId => () => {
-		dispatch(CustomerActions.remove(customerId))
+	const deleteCustomer = entityId => () => {
+		dispatch(CustomerActions.remove(entityId))
 	}
 
 	const newCustomer = () => {
-		history.push('/customers/new');
+		history.push(Locations.CustomerNew.toUrl({ type: 'new' }));
 	};
 
 	const actionButtons = (rowData) => {
 		return (
 			<div>
-				<Button type="button" tooltip="View" icon="pi pi-search" style={styles.viewButton} onClick={viewCustomer(rowData)} />
-				<Button type="button" tooltip="Edit" icon="pi pi-pencil" style={styles.viewButton} onClick={editCustomer(rowData)} />
+				<Button type="button" tooltip="View" icon="pi pi-search" style={styles.viewButton} onClick={viewCustomer(rowData.entityId)} />
+				<Button type="button" tooltip="Edit" icon="pi pi-pencil" style={styles.viewButton} onClick={editCustomer(rowData.entityId)} />
 				<Button type="button" tooltip="Delete" icon="pi pi-trash" onClick={deleteCustomer(rowData.entityId)} />
 			</div>
 		);

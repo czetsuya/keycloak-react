@@ -13,6 +13,7 @@ import 'fullcalendar/dist/fullcalendar.css';
 import '../../ripple.js';
 import '../../App.css';
 import { withLoadingScreen } from './withLoadingScreen'
+import Locations from '../../Locations'
 
 class SecureLayout extends Component {
 	constructor(props) {
@@ -92,13 +93,12 @@ class SecureLayout extends Component {
 		this.menu = [
 			{
 				label: 'Dashboard', icon: 'pi pi-fw pi-home', command: () => {
-					// window.location = '/';
-					this.navigateToMenu('/dashboard')
+					this.navigateToMenu(Locations.Dashboard.toUrl())
 				},
 			},
 			{
 				label: 'Customers', icon: 'pi pi-fw pi-list', command: () => {
-					this.navigateToMenu('/customers');
+					this.navigateToMenu(Locations.CustomerList.toUrl());
 				},
 			},
 			{
@@ -182,7 +182,7 @@ class SecureLayout extends Component {
 			},
 			{
 				label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => {
-					this.navigateToMenu('/documentation');
+					this.navigateToMenu(Locations.Document.toUrl());
 				},
 			},
 			{

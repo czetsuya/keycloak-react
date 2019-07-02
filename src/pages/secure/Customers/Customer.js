@@ -7,20 +7,21 @@ import { InputText } from 'primereact/inputtext';
 import { withSecurity } from '../../routing/SecureRoutes';
 import { withSecureLayout } from '../../layout/SecureLayout';
 import * as CustomerActions from '../../../framework/redux/modules/Customers'
+import Locations from '../../../Locations'
 
 const styles = {
 	cancelButton: { marginRight: '.25em' },
 };
 
 const Customer = ({ dispatch, customer, history, navigation, match: { params: { type, entityId = null } } }) => {
-	
+
 	useEffect(() => {
 		dispatch(CustomerActions.retrieve({ entityId }));
 	}, [dispatch, entityId, type]);
 
 	const close = () => {
 		dispatch(CustomerActions.retrieve());
-		history.push('/customers');
+		history.push(Locations.CustomerList.toUrl());
 	};
 
 	const save = (customer) => {
