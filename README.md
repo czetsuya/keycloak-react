@@ -1,3 +1,5 @@
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S0YXPX)
+
 # Keycloak React
 
 A demo project created to demonstrate how a react project can be secured using a Keycloak server via authorization token.
