@@ -1,32 +1,50 @@
-import { applyMiddleware, createStore, compose } from 'redux';
-import { persistCombineReducers } from 'redux-persist';
-import localForage from 'localforage';
-import thunk from 'redux-thunk';
-import promise from 'redux-promise-middleware';
-import reducers from './Reducers';
+/**
+ * @author Edward P. Legaspi
+ * @version 0.0.1
+ */
+import { createStore, applyMiddleware, compose } from 'redux'
+import { persistCombineReducers } from 'redux-persist'
+import localForage from 'localforage'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+// import api from '../middleware/api'
+import promise from 'redux-promise-middleware'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import rootReducer from './Reducers'
+import { crashReporter } from './Middlewares'
+import { monitorReducerEnhancer } from './Enhancers'
 
 const isProductionMode = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
 
-let middleware = null;
+let middleware = null
 
-const middlewares = [thunk, promise];
+const middlewares = [thunk, promise, crashReporter]
 
 if (isProductionMode) {
-	middleware = compose(applyMiddleware(...middlewares));
+	middleware = compose(applyMiddleware(...middlewares))
+
 } else {
-	// eslint-disable-next-line no-underscore-dangle
-	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-	middleware = composeEnhancers(applyMiddleware(...middlewares));
+	middleware = composeWithDevTools(
+		applyMiddleware(...middlewares, createLogger()),
+		monitorReducerEnhancer
+	)
 }
 
-const persistedReducers = persistCombineReducers(
-	{
-		key: 'keycloak-react',
-		storage: localForage,
-		blacklist: ['authContext']
-	},
-	reducers
-);
+const configureStore = preloadedState => {
+	const store = createStore(
+		persistCombineReducers(
+			{
+				key: 'keycloak-react',
+				storage: localForage,
+				whitelist: ['authContext']
+			},
+			rootReducer,
+		),
+		preloadedState,
+		middleware
+	)
 
-const ApplicationStore = createStore(persistedReducers, undefined, middleware);
-export default ApplicationStore;
+	return store
+}
+
+export default configureStore()
