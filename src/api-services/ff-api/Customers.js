@@ -1,7 +1,6 @@
 import BaseService from '../BaseService';
 
 class Customers extends BaseService {
-
 	list() {
 		return this.serviceConnector().callApi({ url: '/customers' });
 	}

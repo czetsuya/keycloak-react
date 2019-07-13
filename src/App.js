@@ -11,13 +11,13 @@ import 'primeflex/primeflex.css';
 import 'fullcalendar/dist/fullcalendar.css';
 import './layout/layout.css';
 import './App.css';
+import * as AuthorizationActions from './framework/redux/modules/Authorization';
 import Dashboard from './components/Dashboard';
 import Documentation from './components/Documentation';
 import CustomerList from './pages/secure/Customers/CustomerList';
 import Customer from './pages/secure/Customers/Customer';
 import SecurityContext from './pages/routing/SecurityContext';
 import LandingPageSwitcher from './pages/routing/LandingPageSwitcher.js';
-import * as AuthorizationActions from './framework/redux/modules/Authorization';
 import NotFound from './components/NotFound'
 import Error401 from './components/Error401'
 import Error500 from './components/Error500'
