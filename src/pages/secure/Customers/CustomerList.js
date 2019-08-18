@@ -35,6 +35,14 @@ const CustomerList = ({ dispatch, customers, history }) => {
 		history.push(Locations.CustomerNew.toUrl({ type: 'new' }));
 	};
 
+	const clickUserRole = () => {
+		dispatch(CustomerActions.clickUserRole())
+	}
+
+	const clickAdminRole = () => {
+		dispatch(CustomerActions.clickAdminRole())
+	}
+
 	const actionButtons = (rowData) => {
 		return (
 			<div>
@@ -66,6 +74,11 @@ const CustomerList = ({ dispatch, customers, history }) => {
 						<Column body={actionButtons} style={styles.actionsColumn} />
 					</DataTable>
 				</div>
+			</div>
+			<div>
+				<h2>Role Base Actions</h2>
+				<Button type="button" label="Role User" onClick={clickUserRole}></Button>&nbsp;
+				<Button type="button" label="Role Admin" onClick={clickAdminRole}></Button>
 			</div>
 		</div>
 	);

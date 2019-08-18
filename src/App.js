@@ -12,6 +12,7 @@ import 'fullcalendar/dist/fullcalendar.css';
 import './layout/layout.css';
 import './App.css';
 import * as AuthorizationActions from './framework/redux/modules/Authorization';
+import Home from './components/Home'
 import Dashboard from './components/Dashboard';
 import Documentation from './components/Documentation';
 import CustomerList from './pages/secure/Customers/CustomerList';
@@ -47,7 +48,7 @@ class App extends Component {
 				<Suspense fallback={<ProgressSpinner />}>
 					<I18nextProvider i18n={i18next}>
 						<Switch>
-							{Locations.Home.toRoute({ component: LandingPageSwitcher, invalid: NotFound }, true)}
+							{Locations.Home.toRoute({ component: Home, invalid: NotFound }, true)}
 							{/* Public Routes */}
 							<Route path="/error-401" component={Error401} />
 							<Route path="/error-500" component={Error500} />

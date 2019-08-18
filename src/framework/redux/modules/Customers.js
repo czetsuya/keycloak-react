@@ -8,6 +8,7 @@ const CREATE = 'customers/CREATE';
 const RETRIEVE = 'customers/RETRIEVE';
 const UPDATE = 'customers/UPDATE';
 const DELETE = 'customers/DELETE';
+const CLICK = 'customers/CLICK';
 
 const initialState = {
 	selected: {},
@@ -37,6 +38,12 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				list: [...state.list.filter((e, index, arr) => { return e.entityId !== action.payload.entityId })]
+			};
+		}
+		case Dispatch.successAction(CLICK): {
+			return {
+				...state,
+				selected: { ...action.payload },
 			};
 		}
 		default:
@@ -97,3 +104,19 @@ export const remove = customerId => dispatch => {
 			Dispatch.done(dispatch, DELETE, { status: SUCCESS, result: { entityId: customerId } });
 		});
 };
+
+export const clickUserRole = () => dispatch => {
+	console.log('click')
+	CustomerService.accessByUserRole()
+		.then(response => {
+			Dispatch.done(dispatch, CLICK, { status: SUCCESS, response });
+		})
+}
+
+export const clickAdminRole = () => dispatch => {
+	console.log('click')
+	CustomerService.accessByAdminRole()
+		.then(response => {
+			Dispatch.done(dispatch, CLICK, { status: SUCCESS, response });
+		})
+}

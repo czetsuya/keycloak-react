@@ -4,6 +4,8 @@
 
 A demo project created to demonstrate how a react project can be secured using a Keycloak server via authorization token.
 
+Realm configuration and users must be imported from the Spring Keycloak project in the requirements.
+
 ## Requirements
 - Keycloak server 6.0.1
 - https://github.com/czetsuya/Spring-Keycloak-with-REST-API

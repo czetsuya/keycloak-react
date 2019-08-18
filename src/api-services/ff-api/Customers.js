@@ -31,6 +31,20 @@ class Customers extends BaseService {
 			method: 'DELETE',
 		});
 	}
+
+	accessByUserRole() {
+		return this.serviceConnector().invokeRequest({
+			url: '/users',
+			method: 'GET'
+		})
+	}
+
+	accessByAdminRole() {
+		return this.serviceConnector().invokeRequest({
+			url: '/admin',
+			method: 'GET'
+		})
+	}
 }
 
 const customers = new Customers();
