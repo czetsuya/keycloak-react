@@ -33,7 +33,13 @@ class App extends Component {
 			token: PropTypes.string,
 			user: PropTypes.shape({
 				username: PropTypes.string,
-			})
+			}),
+			login: PropTypes.func,
+			loginUrl: PropTypes.string,
+			logout: PropTypes.func,
+			logoutUrl: PropTypes.string,
+			registerUrl: PropTypes.string,
+			accountUrl: PropTypes.string
 		}).isRequired,
 	};
 

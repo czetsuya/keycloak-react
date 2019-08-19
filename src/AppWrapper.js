@@ -5,9 +5,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import ApplicationStore from './framework/redux/ApplicationStore'
 import App from './App'
 
-console.log('aw')
-console.log(ApplicationStore)
-
 class AppWrapper extends Component {
 	constructor(props) {
 		super(props)

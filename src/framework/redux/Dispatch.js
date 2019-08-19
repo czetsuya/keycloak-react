@@ -15,7 +15,7 @@ export default class Dispatch {
 	}
 
 	static fatalAction(type) {
-		return `${type}__FATAL`;
+		return `${type}_FATAL`;
 	}
 
 	static loading(dispatch, type) {

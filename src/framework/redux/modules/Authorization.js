@@ -37,11 +37,17 @@ export default function reducer(state = initialState, action) {
 
 export function initialize(authContext) {
 	return (dispatch, getState) => {
-		scheduleTokenRefresh(dispatch, authContext);
+		scheduleTokenRefresh(dispatch, authContext)
 		const { keycloak } = authContext || {}
-		const { token, idTokenParsed: { preferred_username } } = keycloak || {};
+		const { token, idTokenParsed: { preferred_username } } = keycloak || {}
+		const login = keycloak.login
+		const loginUrl = keycloak.createLoginUrl()
+		const logoutUrl = keycloak.createLogoutUrl()
+		const logout = keycloak.logout
+		const registerUrl = keycloak.createRegisterUrl()
+		const accountUrl = keycloak.createAccountUrl()
 
-		Dispatch.success(dispatch, INITIALIZE, { keycloak, token, user: { username: preferred_username } });
+		Dispatch.success(dispatch, INITIALIZE, { keycloak, token, user: { username: preferred_username }, login, loginUrl, logout, logoutUrl, registerUrl, accountUrl });
 	};
 }
 
@@ -68,7 +74,7 @@ const scheduleTokenRefresh = (dispatch, authContext) => {
 export const logout = (now = true) => {
 	return function (dispatch, getState) {
 		const { authContext } = getState() || {}
-		const { keycloak } = authContext || {}
+		const { keycloak, logoutUrl, logout } = authContext || {}
 
 		if (!keycloak) {
 			return
@@ -77,12 +83,12 @@ export const logout = (now = true) => {
 		if (now) {
 			if (keycloak && keycloak.authenticated) {
 				Dispatch.success(dispatch, LOGOUT);
-				keycloak.logout({ redirectUri: keycloak.createLogoutUrl() })
+				logout({ redirectUri: logoutUrl })
 			}
 		} else {
 			setTimeout(() => {
 				Dispatch.success(dispatch, LOGOUT);
-				keycloak.logout({ redirectUri: keycloak.createLogoutUrl() })
+				logout({ redirectUri: logoutUrl })
 			}, 5000);
 		}
 	}

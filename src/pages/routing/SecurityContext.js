@@ -1,4 +1,4 @@
 import React from 'react';
 
-const initialContext = { keycloak: null };
-export default React.createContext(initialContext);
+const authContext = { keycloak: null };
+export default React.createContext(authContext);

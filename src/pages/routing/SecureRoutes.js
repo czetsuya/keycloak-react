@@ -7,7 +7,6 @@ import BusyLoader from '../../framework/component/BusyLoader'
 export const withSecurity = SecureComponent => props => {
 	const { authContext, setAuthContext } = useContext(SecurityContext);
 	const { keycloak, token } = authContext || {}
-
 	const keycloakAuthenticated = keycloak ? keycloak.authenticated : false
 
 	useEffect(() => {
@@ -26,6 +25,7 @@ export const withSecurity = SecureComponent => props => {
 
 			(async () => {
 				const keycloakInstance = await authenticate;
+				console.log(keycloakInstance)
 				setAuthContext({ keycloak: keycloakInstance });
 			})();
 		}
