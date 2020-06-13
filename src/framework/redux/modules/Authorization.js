@@ -11,7 +11,11 @@ const UPDATE_TOKEN = 'authorization/UPDATE_TOKEN';
 const initialState = {
 	keycloak: null,
 	token: null,
-	user: { username: null }
+	user: { username: null },
+	loginUrl: null,
+	logoutUrl: null,
+	registerUrl: null,
+	accountUrl: null
 };
 
 const TOKEN_REFRESH_RATE = 30;

@@ -1,6 +1,6 @@
 {
   "realm": "primereact-app",
-  "auth-server-url": "http://192.168.1.6:8080/auth",
+  "auth-server-url": "http://192.168.1.101:8080/auth/",
   "ssl-required": "external",
   "resource": "primereact-client",
   "credentials": {
